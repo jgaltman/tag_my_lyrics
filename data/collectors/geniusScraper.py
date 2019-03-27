@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import sys
 
 base_url = 'http://api.genius.com'
 headers = {'Authorization': 'Bearer u0cAPtMZ8V-fhGqs2OGbEWyEe5HsrLb1BL1tMX-j6W6NYowtlq0_d5aWPUnvSYC0'}
@@ -28,7 +29,11 @@ def lyrics_from_song_api_path(song_api_path):
     lyrics = html.find(class_='lyrics').get_text()
     return lyrics
 if __name__ == '__main__':
-    input_file = open('ENTERFILEHERE',"r")
+    number_tried = 0
+    number_found = 0
+    assert len(sys.argv) > 1
+    filename = sys.argv[1]
+    input_file = open(filename,"r")
     content = docConvert(input_file)
     for item in content:
         song_title = item[0]
@@ -38,16 +43,20 @@ if __name__ == '__main__':
         response = requests.get(search_url, params=data, headers=headers)
         song_info = None
         json = response.json()
-
+        number_tried += 1
         for hit in json['response']['hits']:
             if hit['result']['primary_artist']['name'] == artist_name:
                 song_info = hit
         if song_info:
+            number_found += 1
             song_api_path = song_info['result']['api_path']
-            print(song_info['result']['full_title'])
-            print(lyrics_from_song_api_path(song_api_path))
+            print(song_info['result']['full_title'],": Found! [omitting lyrics]")
+            # print(lyrics_from_song_api_path(song_api_path))
         else:
             print(artist_name + ' - ' + song_title + ': Not found')
+
+        print('current progress: {}/{}, {}%'
+            .format(number_found, number_tried, 100*number_found/number_tried))
 
 
 #client id OtbFtWmkQc3Vf4R9oOKTRhSqrgtfvFOuODDhROhvJf3onFuiHe9hSHwmeAsSCO52
