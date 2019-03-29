@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import sys
+import re
 
 base_url = 'http://api.genius.com'
 headers = {'Authorization': 'Bearer u0cAPtMZ8V-fhGqs2OGbEWyEe5HsrLb1BL1tMX-j6W6NYowtlq0_d5aWPUnvSYC0'}
@@ -50,8 +51,9 @@ if __name__ == '__main__':
         if song_info:
             number_found += 1
             song_api_path = song_info['result']['api_path']
-            print(song_info['result']['full_title'],": Found! [omitting lyrics]")
-            # print(lyrics_from_song_api_path(song_api_path))
+            print(song_info['result']['full_title'],": Found!")
+            my_string = (lyrics_from_song_api_path(song_api_path))
+            print(my_string)
         else:
             print(artist_name + ' - ' + song_title + ': Not found')
 
