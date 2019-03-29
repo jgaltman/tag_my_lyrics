@@ -17,6 +17,9 @@ def docConvert(q):
         song_set.add((s[0],s[1].strip()))
     return song_set
 
+def pickle(lyric_dict, file):
+    pickle.dump(lyric_dict, open(file, 'wb'))
+
 def lyrics_from_song_api_path(song_api_path):
     song_url = base_url + song_api_path
     response = requests.get(song_url, headers=headers)
