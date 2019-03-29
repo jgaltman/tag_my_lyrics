@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import sys
 import re
+import pickle
 
 base_url = 'http://api.genius.com'
 headers = {'Authorization': 'Bearer u0cAPtMZ8V-fhGqs2OGbEWyEe5HsrLb1BL1tMX-j6W6NYowtlq0_d5aWPUnvSYC0'}
@@ -17,8 +18,12 @@ def docConvert(q):
         song_set.add((s[0],s[1].strip()))
     return song_set
 
-def pickle(lyric_dict, file):
+def pickleing(lyric_dict, file):
     pickle.dump(lyric_dict, open(file, 'wb'))
+
+# my_dict = {"2":{'title': "songtitle",'artist':"singer",}}
+
+# pickle(my_dict, 'file.pickle')
 
 def lyrics_from_song_api_path(song_api_path):
     song_url = base_url + song_api_path
@@ -33,6 +38,8 @@ def lyrics_from_song_api_path(song_api_path):
     lyrics = html.find(class_='lyrics').get_text()
     return lyrics
 if __name__ == '__main__':
+    countrySongs = {}
+    id = 0
     number_tried = 0
     number_found = 0
     assert len(sys.argv) > 1
@@ -57,12 +64,22 @@ if __name__ == '__main__':
             print(song_info['result']['full_title'],": Found!")
             my_string = (lyrics_from_song_api_path(song_api_path))
             my_string = re.sub("\[.*?\]", "", my_string)
-            print(my_string)
+            countrySongs[id] = {"title":song_title,"artist":artist_name,"lyrics":my_string}
+            id+=1
+        if( id == 5):
+            for k in countrySongs.keys():
+                print(countrySongs[k])
+            break
+
         else:
             print(artist_name + ' - ' + song_title + ': Not found')
 
         print('current progress: {}/{}, {}%'
             .format(number_found, number_tried, 100*number_found/number_tried))
+    with open('CountrySongsLyrics.pickle', 'wb') as handle:
+        pickle.dump(countrySongs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('CountrySongsLyrics.pickle', 'rb') as handle:
+        b = pickle.load(handle)
 
 
 #client id OtbFtWmkQc3Vf4R9oOKTRhSqrgtfvFOuODDhROhvJf3onFuiHe9hSHwmeAsSCO52
