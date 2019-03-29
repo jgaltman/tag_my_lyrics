@@ -56,6 +56,7 @@ if __name__ == '__main__':
             song_api_path = song_info['result']['api_path']
             print(song_info['result']['full_title'],": Found!")
             my_string = (lyrics_from_song_api_path(song_api_path))
+            my_string = re.sub("\[.*?\]", "", my_string)
             if 'chorus' in my_string or 'Chorus' in my_string or 'CHORUS' in my_string:
                 print(my_string)
         else:
