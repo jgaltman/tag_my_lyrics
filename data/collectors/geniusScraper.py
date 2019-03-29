@@ -66,11 +66,8 @@ if __name__ == '__main__':
             my_string = re.sub("\[.*?\]", "", my_string)
             countrySongs[id] = {"title":song_title,"artist":artist_name,"lyrics":my_string}
             id+=1
-        if( id == 5):
-            for k in countrySongs.keys():
-                print(countrySongs[k])
-            break
-
+            if 'chorus' in my_string or 'Chorus' in my_string or 'CHORUS' in my_string:
+                print(my_string)
         else:
             print(artist_name + ' - ' + song_title + ': Not found')
 
