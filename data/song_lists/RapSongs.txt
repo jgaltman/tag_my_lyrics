@@ -577,7 +577,7 @@ Stay Wide Awake|-+-|Eminem
 Old Time's Sake|-+-|Eminem
 Must Be The Ganja|-+-|Eminem
 Mr. Mathers|-+-|Eminem
-Déjà Vu|-+-|Eminem
+DÃ©jÃ  Vu|-+-|Eminem
 Beautiful|-+-|Eminem
 Crack A Bottle|-+-|Eminem
 Underground|-+-|Eminem
@@ -4305,7 +4305,7 @@ Uzi Intro|-+-|Lil Uzi Vert
 U.Z.I|-+-|Lil Uzi Vert
 Understand|-+-|Lil Uzi Vert
 Trunk Got Birdies|-+-|Lil Uzi Vert
-Señor Guapo|-+-|Lil Uzi Vert
+SeÃ±or Guapo|-+-|Lil Uzi Vert
 Tropics|-+-|Lil Uzi Vert
 I'm Sorry|-+-|Lil Uzi Vert
 Plugged In|-+-|Lil Uzi Vert
@@ -4349,7 +4349,7 @@ Boring Shit|-+-|Lil Uzi Vert
 Luv Scars K.o 1600|-+-|Lil Uzi Vert
 XO Tour Llif3|-+-|Lil Uzi Vert
 YSL|-+-|Lil Uzi Vert
-Two®|-+-|Lil Uzi Vert
+TwoÂ®|-+-|Lil Uzi Vert
 444+222|-+-|Lil Uzi Vert
 Sauce It Up|-+-|Lil Uzi Vert
 No Sleep Leak|-+-|Lil Uzi Vert
@@ -5716,7 +5716,7 @@ Live At P.J.'s|-+-|Beastie Boys
 Mark On The Bus|-+-|Beastie Boys
 Professor Booty|-+-|Beastie Boys
 In 3's|-+-|Beastie Boys
-NamastÃ©|-+-|Beastie Boys
+NamastÃƒÂ©|-+-|Beastie Boys
 Dub The Mic|-+-|Beastie Boys
 Drunken Praying Mantis Style|-+-|Beastie Boys
 Netty's Girl|-+-|Beastie Boys
@@ -8130,7 +8130,7 @@ Allright Intro|-+-|Pitbull
 Miami Shit|-+-|Pitbull
 Come See Me|-+-|Pitbull
 Jealouso|-+-|Pitbull
-Qué Tú Sabes D'eso|-+-|Pitbull
+QuÃ© TÃº Sabes D'eso|-+-|Pitbull
 Fademaster Skit|-+-|Pitbull
 Be Quiet|-+-|Pitbull
 Ay Chico (Lengua Afuera)|-+-|Pitbull
@@ -8201,14 +8201,14 @@ Rain Over Me|-+-|Pitbull
 Hey Baby (Drop It To The Floor)|-+-|Pitbull
 Pause|-+-|Pitbull
 Come N Go|-+-|Pitbull
-Shake Señora|-+-|Pitbull
+Shake SeÃ±ora|-+-|Pitbull
 International Love|-+-|Pitbull
 Castle Made Of Sand|-+-|Pitbull
 Took My Love|-+-|Pitbull
 Where Do We Go|-+-|Pitbull
 Something For The DJs|-+-|Pitbull
 Mr. Right Now|-+-|Pitbull
-Shake Señora (Remix)|-+-|Pitbull
+Shake SeÃ±ora (Remix)|-+-|Pitbull
 Oye Baby|-+-|Pitbull
 My Kinda Girl|-+-|Pitbull
 Global Warming (Intro)|-+-|Pitbull
@@ -8245,14 +8245,14 @@ We Are One (Ole Ola)|-+-|Pitbull
 Piensas (Dile La Verdad)|-+-|Pitbull
 Como Yo Le Doy|-+-|Pitbull
 El Taxi|-+-|Pitbull
-Gente De Zona:Yo Quiero (Si Tú Te Enamoras)|-+-|Pitbull
+Gente De Zona:Yo Quiero (Si TÃº Te Enamoras)|-+-|Pitbull
 El Party|-+-|Pitbull
 Mami Mami|-+-|Pitbull
 Baddest Girl In Town|-+-|Pitbull
 Chi Chi Bon Bon|-+-|Pitbull
 Haciendo Ruido|-+-|Pitbull
 Hoy Se Bebe|-+-|Pitbull
-No Puedo Más|-+-|Pitbull
+No Puedo MÃ¡s|-+-|Pitbull
 Sensato:Que Lo Que|-+-|Pitbull
 We Are Strong|-+-|Pitbull
 Bad Man|-+-|Pitbull
