@@ -14,7 +14,7 @@ def main(path_in, path_out):
 
   for songID in lyricData['lyrics']:
     song = lyricData['lyrics'][songID]
-    print('songID: {}, artist: {}, first piece of lyrics: {}'.format(
+    print('\n\n\n\nsongID: {}, artist: {}, first piece of lyrics: {}'.format(
       songID, song['artist'], song['lyrics'][:100]))
 
 if __name__ == '__main__':
