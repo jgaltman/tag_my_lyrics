@@ -20,14 +20,34 @@ def docConvert(q):
   return song_set
 
 
+def fetchSong(song_info):
+  try:
+    #print('  not in pickle, let\'s see if we can find it...')
+    return genius.search_song(song_info[0], song_info[1])
+
+  except:
+    print('something has gone wrong :(\ntype \'a\' to try again, \'s\' to skip this song and carry on, or send a keyboard interrupt (^C) to quit.')
+
+    try:
+      user_input = input()
+    except:
+      raise
+
+    if user_input == 'a':
+      return fetchSong(song_info)
+    else:
+      return
+
+
 def main(genre, path_in, path_out, append):
   if append:
     with open(path_out, 'rb') as pickle_file:
-      lyricData = pickle.load(pickle_file)
+      lyric_data = pickle.load(pickle_file)
+
   else:
-    lyricData = {}
-    lyricData['genre'] = genre
-    lyricData['lyrics'] = {}
+    lyric_data = {}
+    lyric_data['genre'] = genre
+    lyric_data['lyrics'] = {}
 
   number_tried = 0
   number_found = 0
@@ -35,38 +55,37 @@ def main(genre, path_in, path_out, append):
   file_in = open(path_in, 'r')
   content = docConvert(file_in)
 
+  print(('so far, you\'ve collected {} songs. '
+         'Total size of source songs file is {} songs.').format(
+         len(lyric_data['lyrics']), len(content)))
+
   print('found/attempted')
 
   for song_info in content:
     #print(song_info)
-    if song_info not in lyricData['lyrics']:
-      #print('  not in pickle, let\'s see if we can find it...')
-
-      song = genius.search_song(song_info[0], song_info[1])
+    if song_info not in lyric_data['lyrics']:
+      song = fetchSong(song_info)
       number_tried += 1
-
       if song:
-        #print('    found it!')
         number_found += 1
-
         lyrics = song.lyrics
         lyrics = re.sub('\\[.*?\\]', '', lyrics)
-        lyricData['lyrics'][song_info] = {"title":song.title,"artist":song.artist,"lyrics":lyrics}
-
+        lyric_data['lyrics'][song_info] = {"title":song.title,
+        "artist":song.artist,"lyrics":lyrics}
         print('{}/{}'.format(number_found,number_tried))
 
-      #else:
-        #print('    not found :(')
-
       if(number_found % 25 == 0):
-        #print('pickling to save progress...')
+        # save every 25 songs just in case
         with open(path_out, 'wb') as pickle_file:
-          pickle.dump(lyricData, pickle_file)
-        #print('done pickling')
+          pickle.dump(lyric_data, pickle_file)
+
+    else:
+      print('already in pickle!')
+
 
   print('done fetching lyrics, pickling...')
   with open(path_out, 'wb') as pickle_file:
-    pickle.dump(lyricData, pickle_file)
+    pickle.dump(lyric_data, pickle_file)
   print('done!')
 
 
@@ -75,6 +94,7 @@ if __name__ == '__main__':
     print('Usage: geniusScraper.py [genre name for object] [path to GenreSongs.txt] [path to fileout.pickle] [flags (optional)]')
     print('  flags include:')
     print('  -a / --append      open [fileout.pickle] and append to it')
+
   else:
     genre = sys.argv[1]
     filein = sys.argv[2]
@@ -86,4 +106,5 @@ if __name__ == '__main__':
           append = True
         else:
           print('ignoring unknown argument "{}"'.format(arg))
+          
     main(genre, filein, fileout, append)
