@@ -5,6 +5,7 @@ import pickle
 
 client_access_token = 'hm9nFzpsVkkj12dXzta2-DIR7_fOmYDV2UutS2a1tX7KZK_bVcrhh8Lr-9cj9o5M'
 genius = lyricsgenius.Genius(client_access_token)
+AUTO = True
 
 def docReader(file):
   l = file.readlines()
@@ -20,13 +21,13 @@ def docConvert(q):
   return song_set
 
 
-def fetchSong(song_info):
+def fetchSong(song_info, attempt = 0):
   try:
     #print('  not in pickle, let\'s see if we can find it...')
     return genius.search_song(song_info[0], song_info[1])
 
-  except:
-    print('something has gone wrong :(\ntype \'a\' to try again, \'s\' to skip this song and carry on, or send a keyboard interrupt (^C) to quit.')
+  except KeyboardInterrupt:
+    print('KeyboardInterrupt detected.\ntype \'a\' to try again, \'s\' to skip this song and carry on, or send a keyboard interrupt (^C) to quit.')
 
     try:
       user_input = input()
@@ -38,8 +39,37 @@ def fetchSong(song_info):
     else:
       return
 
+  except:
+    if AUTO:
+      if attempt < 5:
+        print('trying again...')
+        return fetchSong(song_info, attempt = attempt + 1)
+      else:
+        with open('error.txt', 'w+') as errorfile:
+          f.write('error on this song:')
+          f.write('  {}'.format(song_info))
+        return
+
+    else:
+
+      print('something has gone wrong :(\ntype \'a\' to try again, \'s\' to skip this song and carry on, or send a keyboard interrupt (^C) to quit.')
+
+      try:
+        user_input = input()
+      except:
+        raise
+
+      if user_input == 'a':
+        return fetchSong(song_info)
+      else:
+        return
+
+
 
 def main(genre, path_in, path_out, append):
+
+  # TODO: keep track of songs not found on genius
+
   if append:
     with open(path_out, 'rb') as pickle_file:
       lyric_data = pickle.load(pickle_file)
@@ -59,8 +89,6 @@ def main(genre, path_in, path_out, append):
          'Total size of source songs file is {} songs.').format(
          len(lyric_data['lyrics']), len(content)))
 
-  print('found/attempted')
-
   for song_info in content:
     #print(song_info)
     if song_info not in lyric_data['lyrics']:
@@ -72,7 +100,9 @@ def main(genre, path_in, path_out, append):
         lyrics = re.sub('\\[.*?\\]', '', lyrics)
         lyric_data['lyrics'][song_info] = {"title":song.title,
         "artist":song.artist,"lyrics":lyrics}
-        print('{}/{}'.format(number_found,number_tried))
+        print('{f}/{t} found in this session, {e}/{o} found overall.\n'.format(
+          f = number_found, t = number_tried,
+          e = len(lyric_data['lyrics']), o = len(content)))
 
       if(number_found % 25 == 0):
         # save every 25 songs just in case
@@ -106,5 +136,5 @@ if __name__ == '__main__':
           append = True
         else:
           print('ignoring unknown argument "{}"'.format(arg))
-          
+
     main(genre, filein, fileout, append)
