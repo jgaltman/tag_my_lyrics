@@ -38,7 +38,7 @@ def lyrics_from_song_api_path(song_api_path):
     lyrics = html.find(class_='lyrics').get_text()
     return lyrics
 if __name__ == '__main__':
-    countrySongs = {}
+    ChristianSongs = {}
     id = 0
     number_tried = 0
     number_found = 0
@@ -61,22 +61,25 @@ if __name__ == '__main__':
         if song_info:
             number_found += 1
             song_api_path = song_info['result']['api_path']
-            print(song_info['result']['full_title'],": Found!")
+            #print(song_info['result']['full_title'],": Found!")
             my_string = (lyrics_from_song_api_path(song_api_path))
             my_string = re.sub("\[.*?\]", "", my_string)
-            countrySongs[id] = {"title":song_title,"artist":artist_name,"lyrics":my_string}
+            ChristianSongs[id] = {"title":song_title,"artist":artist_name,"lyrics":my_string}
             id+=1
-            if 'chorus' in my_string or 'Chorus' in my_string or 'CHORUS' in my_string:
-                print(my_string)
-        else:
-            print(artist_name + ' - ' + song_title + ': Not found')
+            if(id%100 == 0):
+                with open('ChristianSongsLyrics.pickle', 'wb') as handle:
+                    pickle.dump(ChristianSongs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                with open('ChristianSongsLyrics.pickle', 'rb') as handle:
+                    b = pickle.load(handle)
 
-        print('current progress: {}/{}, {}%'
-            .format(number_found, number_tried, 100*number_found/number_tried))
-    with open('CountrySongsLyrics.pickle', 'wb') as handle:
-        pickle.dump(countrySongs, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('CountrySongsLyrics.pickle', 'rb') as handle:
-        b = pickle.load(handle)
+            # if 'chorus' in my_string or 'Chorus' in my_string or 'CHORUS' in my_string:
+            #     print(my_string)
+        # else:
+        #     print(artist_name + ' - ' + song_title + ': Not found')
+
+        # print('current progress: {}/{}, {}%'
+        #     .format(number_found, number_tried, 100*number_found/number_tried))
+
 
 
 #client id OtbFtWmkQc3Vf4R9oOKTRhSqrgtfvFOuODDhROhvJf3onFuiHe9hSHwmeAsSCO52
