@@ -58,7 +58,7 @@ def main(genre, path_in, path_out, append):
       #else:
         #print('    not found :(')
 
-      if(number_found % 100 == 0):
+      if(number_found % 25 == 0):
         #print('pickling to save progress...')
         with open(path_out, 'wb') as pickle_file:
           pickle.dump(lyricData, pickle_file)
