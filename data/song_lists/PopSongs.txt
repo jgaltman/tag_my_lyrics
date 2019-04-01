@@ -102,7 +102,7 @@ No Pressure|-+-|Justin Bieber
 No Sense|-+-|Justin Bieber
 The Feeling|-+-|Justin Bieber
 Life Is Worth Living|-+-|Justin Bieber
-Jack Ü:Where Are Ü Now|-+-|Justin Bieber
+Jack Ãœ:Where Are Ãœ Now|-+-|Justin Bieber
 Children|-+-|Justin Bieber
 Purpose|-+-|Justin Bieber
 Been You|-+-|Justin Bieber
@@ -161,21 +161,21 @@ Government Hooker|-+-|Lady Gaga
 Judas|-+-|Lady Gaga
 Americano|-+-|Lady Gaga
 Hair|-+-|Lady Gaga
-Scheiße|-+-|Lady Gaga
+ScheiÃŸe|-+-|Lady Gaga
 Bloody Mary|-+-|Lady Gaga
-Black Jesus † Amen Fashion|-+-|Lady Gaga
+Black Jesus â€  Amen Fashion|-+-|Lady Gaga
 Bad Kids|-+-|Lady Gaga
 Fashion Of His Love|-+-|Lady Gaga
 Highway Unicorn (Road To Love)|-+-|Lady Gaga
 Heavy Metal Lover|-+-|Lady Gaga
 Electric Chapel|-+-|Lady Gaga
 The Queen|-+-|Lady Gaga
-Yoü And I|-+-|Lady Gaga
+YoÃ¼ And I|-+-|Lady Gaga
 The Edge Of Glory|-+-|Lady Gaga
 Born This Way (The Country Road Version)|-+-|Lady Gaga
 Judas (DJ White Shadow Remix)|-+-|Lady Gaga
 Marry The Night (Zedd Remix)|-+-|Lady Gaga
-Scheiße (DJ White Shadow Mugler)|-+-|Lady Gaga
+ScheiÃŸe (DJ White Shadow Mugler)|-+-|Lady Gaga
 Fashion Of His Love (Fernando Garibay Remix)|-+-|Lady Gaga
 Born This Way (Jost & Naaf Remix)|-+-|Lady Gaga
 Aura|-+-|Lady Gaga
@@ -324,7 +324,7 @@ I'll Remember|-+-|Madonna
 You'll See|-+-|Madonna
 This Used To Be My Playground|-+-|Madonna
 One More Chance|-+-|Madonna
-Verás|-+-|Madonna
+VerÃ¡s|-+-|Madonna
 Laugh To Keep From Crying|-+-|Madonna
 Crimes Of Passion|-+-|Madonna
 Ain't No Big Deal|-+-|Madonna
@@ -557,13 +557,13 @@ Witness|-+-|Katy Perry
 Hey Hey Hey|-+-|Katy Perry
 Roulette|-+-|Katy Perry
 Swish Swish|-+-|Katy Perry
-Déjà Vu|-+-|Katy Perry
+DÃ©jÃ  Vu|-+-|Katy Perry
 Power|-+-|Katy Perry
 Mind Maze|-+-|Katy Perry
 Miss You More|-+-|Katy Perry
 Chained To The Rhythm|-+-|Katy Perry
 Tsunami|-+-|Katy Perry
-Bon Appétit|-+-|Katy Perry
+Bon AppÃ©tit|-+-|Katy Perry
 Bigger Than Me|-+-|Katy Perry
 Save As Draft|-+-|Katy Perry
 Pendulum|-+-|Katy Perry
@@ -972,7 +972,7 @@ Selena Gomez & The Scene:My Dilemma 2.0|-+-|Selena Gomez
 Selena Gomez & The Scene:Round & Round|-+-|Selena Gomez
 Selena Gomez & The Scene:A Year Without Rain|-+-|Selena Gomez
 Selena Gomez & The Scene:Naturally|-+-|Selena Gomez
-Selena Gomez & The Scene:MÃ¡s|-+-|Selena Gomez
+Selena Gomez & The Scene:MÃƒÂ¡s|-+-|Selena Gomez
 Bidi Bidi Bom Bom|-+-|Selena Gomez
 Selena Gomez & The Scene:Falling Down|-+-|Selena Gomez
 Do It|-+-|Selena Gomez
@@ -1157,7 +1157,7 @@ Straight Up & Down|-+-|Bruno Mars
 Calling All My Lovelies|-+-|Bruno Mars
 Finesse|-+-|Bruno Mars
 Too Good To Say Goodbye|-+-|Bruno Mars
-Señorita|-+-|Justin Timberlake
+SeÃ±orita|-+-|Justin Timberlake
 Like I Love You|-+-|Justin Timberlake
 (Oh No) What You Got|-+-|Justin Timberlake
 Take It From Here|-+-|Justin Timberlake
@@ -1325,11 +1325,11 @@ Genio Atrapado|-+-|Christina Aguilera
 Falsas Esperanzas|-+-|Christina Aguilera
 El Beso Del Final|-+-|Christina Aguilera
 Pero Me Acuerdo De Ti|-+-|Christina Aguilera
-Ven Conmigo (Solamente Tú)|-+-|Christina Aguilera
+Ven Conmigo (Solamente TÃº)|-+-|Christina Aguilera
 Si No Te Hubiera Conocido|-+-|Christina Aguilera
 Contigo En La Distancia|-+-|Christina Aguilera
 Cuando No Es Contigo|-+-|Christina Aguilera
-Por Siempre Tú|-+-|Christina Aguilera
+Por Siempre TÃº|-+-|Christina Aguilera
 Una Mujer|-+-|Christina Aguilera
 Mi Reflejo|-+-|Christina Aguilera
 Christmas Time|-+-|Christina Aguilera
@@ -1408,7 +1408,7 @@ Mercy On Me|-+-|Christina Aguilera
 Save Me From Myself|-+-|Christina Aguilera
 The Right Man|-+-|Christina Aguilera
 Nobody Wants To Be Lonely|-+-|Christina Aguilera
-Christina Aguilera, Lil' Kim, Mýa & Pink:Lady Marmalade|-+-|Christina Aguilera
+Christina Aguilera, Lil' Kim, MÃ½a & Pink:Lady Marmalade|-+-|Christina Aguilera
 Genie 2.0|-+-|Christina Aguilera
 Keeps Gettin' Better|-+-|Christina Aguilera
 Dynamite|-+-|Christina Aguilera
@@ -1479,7 +1479,7 @@ Say Goodbye|-+-|The Black Eyed Peas
 Duet|-+-|The Black Eyed Peas
 Communication|-+-|The Black Eyed Peas
 What It Is|-+-|The Black Eyed Peas
-Â¿Que Dices?|-+-|The Black Eyed Peas
+Ã‚Â¿Que Dices?|-+-|The Black Eyed Peas
 A8|-+-|The Black Eyed Peas
 Love Won't Wait|-+-|The Black Eyed Peas
 Head Bobs|-+-|The Black Eyed Peas
@@ -2557,9 +2557,9 @@ Nobody But You|-+-|Backstreet Boys
 Don't Leave Me|-+-|Backstreet Boys
 Give Me Your Heart|-+-|Backstreet Boys
 Lay Down Beside Me|-+-|Backstreet Boys
-Non Puoi Lasciarmi Così|-+-|Backstreet Boys
-Nunca Te Haré Llorar|-+-|Backstreet Boys
-Donde Quieras Yo Iré|-+-|Backstreet Boys
+Non Puoi Lasciarmi CosÃ¬|-+-|Backstreet Boys
+Nunca Te HarÃ© Llorar|-+-|Backstreet Boys
+Donde Quieras Yo IrÃ©|-+-|Backstreet Boys
 As Long As You Love Me|-+-|Backstreet Boys
 Everybody (Backstreet's Back)|-+-|Backstreet Boys
 All I Have To Give|-+-|Backstreet Boys
@@ -3766,7 +3766,7 @@ Melt Away|-+-|Mariah Carey
 Forever|-+-|Mariah Carey
 Daydream Interlude (Fantasy Sweet Dub Mix)|-+-|Mariah Carey
 Looking In|-+-|Mariah Carey
-El Amor Que Soñé|-+-|Mariah Carey
+El Amor Que SoÃ±Ã©|-+-|Mariah Carey
 Fantasy (Remix)|-+-|Mariah Carey
 Honey|-+-|Mariah Carey
 Butterfly|-+-|Mariah Carey
@@ -4573,10 +4573,10 @@ Love Me Down|-+-|Britney Spears
 Hard To Forget Ya|-+-|Britney Spears
 What You Need|-+-|Britney Spears
 Better|-+-|Britney Spears
-Change Your Mind (No Seas Cortés)|-+-|Britney Spears
+Change Your Mind (No Seas CortÃ©s)|-+-|Britney Spears
 Liar|-+-|Britney Spears
 If I'm Dancing|-+-|Britney Spears
-Coupure Èlectrique|-+-|Britney Spears
+Coupure Ãˆlectrique|-+-|Britney Spears
 Mood Ring|-+-|Britney Spears
 I'll Make It Right|-+-|Usher
 Interlude 1|-+-|Usher
@@ -4751,7 +4751,7 @@ Speechless|-+-|Beyonce
 That's How You Like It|-+-|Beyonce
 The Closer I Get To You|-+-|Beyonce
 Dangerously In Love 2|-+-|Beyonce
-Beyoncé Interlude|-+-|Beyonce
+BeyoncÃ© Interlude|-+-|Beyonce
 Gift From Virgo|-+-|Beyonce
 Daddy|-+-|Beyonce
 Wishing On A Star|-+-|Beyonce
@@ -4772,7 +4772,7 @@ Sexy Lil' Thug|-+-|Beyonce
 Fever|-+-|Beyonce
 I'm Leaving|-+-|Beyonce
 Outro|-+-|Beyonce
-Déjà Vu|-+-|Beyonce
+DÃ©jÃ  Vu|-+-|Beyonce
 Get Me Bodied|-+-|Beyonce
 Suga Mama|-+-|Beyonce
 Upgrade U|-+-|Beyonce
@@ -4808,7 +4808,7 @@ Soldier|-+-|Beyonce
 Destiny's Child:Survivor|-+-|Beyonce
 Bonnie & Clyde|-+-|Beyonce
 Deena/Dreamgirls|-+-|Beyonce
-Beyoncé B'Day Surprise|-+-|Beyonce
+BeyoncÃ© B'Day Surprise|-+-|Beyonce
 Beautiful Liar (Instrumental)|-+-|Beyonce
 If I Were A Boy|-+-|Beyonce
 Halo|-+-|Beyonce
@@ -4914,7 +4914,7 @@ I'm Gonna Be Alright|-+-|Jennifer Lopez
 That's The Way|-+-|Jennifer Lopez
 Jennifer Lopez & Chayanne:Dame (Touch Me)|-+-|Jennifer Lopez
 Si Ya Se Acabo|-+-|Jennifer Lopez
-Qué Ironía|-+-|Jennifer Lopez
+QuÃ© IronÃ­a|-+-|Jennifer Lopez
 I'm Waiting|-+-|Jennifer Lopez
 I'm Real (Murder Remix)|-+-|Jennifer Lopez
 Pleasure Is Mine|-+-|Jennifer Lopez
@@ -4953,15 +4953,15 @@ I, Love|-+-|Jennifer Lopez
 He'll Be Back|-+-|Jennifer Lopez
 (Can't Believe) This Is Me|-+-|Jennifer Lopez
 Get Right (Remix)|-+-|Jennifer Lopez
-Qué Hiciste|-+-|Jennifer Lopez
+QuÃ© Hiciste|-+-|Jennifer Lopez
 Me Haces Falta|-+-|Jennifer Lopez
 Como Ama Una Mujer|-+-|Jennifer Lopez
 Te Voy A Querer|-+-|Jennifer Lopez
 Porque Te Marchas|-+-|Jennifer Lopez
 Por Arriesgarnos|-+-|Jennifer Lopez
-Tú|-+-|Jennifer Lopez
+TÃº|-+-|Jennifer Lopez
 Amarte Es Todo|-+-|Jennifer Lopez
-Apresúrate|-+-|Jennifer Lopez
+ApresÃºrate|-+-|Jennifer Lopez
 Sola|-+-|Jennifer Lopez
 Adios|-+-|Jennifer Lopez
 Stay Together|-+-|Jennifer Lopez
@@ -5138,58 +5138,58 @@ Au Secours|-+-|Celine Dion
 L'Amour Viendra|-+-|Celine Dion
 Autour De Moi|-+-|Celine Dion
 Grand Maman|-+-|Celine Dion
-Ce N'Était Qu'Un Rêve|-+-|Celine Dion
+Ce N'Ã‰tait Qu'Un RÃªve|-+-|Celine Dion
 Seul Un Oiseau Blanc|-+-|Celine Dion
 Tire L'Aiguille|-+-|Celine Dion
 Les Roses Blanches|-+-|Celine Dion
 Glory Alleluia|-+-|Celine Dion
 Le P'tit Renne Au Nez Rouge|-+-|Celine Dion
-Petit Papa Noël|-+-|Celine Dion
+Petit Papa NoÃ«l|-+-|Celine Dion
 Sainte Nuit|-+-|Celine Dion
-Les Enfants Oubliés|-+-|Celine Dion
-Noël Blanc|-+-|Celine Dion
-Père Noël Arrive Ce Soir|-+-|Celine Dion
-J'Ai Vu Maman Embrasser Le Père Noël|-+-|Celine Dion
-Promenade En Traîneau|-+-|Celine Dion
-Joyeux Noël|-+-|Celine Dion
-D'Amour Ou D'Amitié|-+-|Celine Dion
-Le Piano Fantôme|-+-|Celine Dion
+Les Enfants OubliÃ©s|-+-|Celine Dion
+NoÃ«l Blanc|-+-|Celine Dion
+PÃ¨re NoÃ«l Arrive Ce Soir|-+-|Celine Dion
+J'Ai Vu Maman Embrasser Le PÃ¨re NoÃ«l|-+-|Celine Dion
+Promenade En TraÃ®neau|-+-|Celine Dion
+Joyeux NoÃ«l|-+-|Celine Dion
+D'Amour Ou D'AmitiÃ©|-+-|Celine Dion
+Le Piano FantÃ´me|-+-|Celine Dion
 Tu Restes Avec Moi|-+-|Celine Dion
 Tellement J'Ai D'Amour Pour Toi|-+-|Celine Dion
-Écoutez-Moi|-+-|Celine Dion
+Ã‰coutez-Moi|-+-|Celine Dion
 Le Tour Du Monde|-+-|Celine Dion
 Visa Pour Les Beaux Jours|-+-|Celine Dion
 Le Vieux Monsieur De La Rue Royale|-+-|Celine Dion
-Mon Ami M'A Quittée|-+-|Celine Dion
+Mon Ami M'A QuittÃ©e|-+-|Celine Dion
 Toi Sur Ta Montagne|-+-|Celine Dion
 Ne Me Plaignez Pas|-+-|Celine Dion
 Vivre Et Donner|-+-|Celine Dion
 Mamy Blue|-+-|Celine Dion
-Du Soleil Au Cœur|-+-|Celine Dion
+Du Soleil Au CÅ“ur|-+-|Celine Dion
 Et Puis Un Jour|-+-|Celine Dion
 Hello Mister Sam|-+-|Celine Dion
 La Do Do La Do|-+-|Celine Dion
 Les Chemins De Ma Maison|-+-|Celine Dion
 Un Enfant|-+-|Celine Dion
-Pourquoi Je Crois Encore Au Père Noël|-+-|Celine Dion
-Céline Et Pinotte|-+-|Celine Dion
-À Quatre Pas D'Ici|-+-|Celine Dion
+Pourquoi Je Crois Encore Au PÃ¨re NoÃ«l|-+-|Celine Dion
+CÃ©line Et Pinotte|-+-|Celine Dion
+Ã€ Quatre Pas D'Ici|-+-|Celine Dion
 Le Conte De Karine|-+-|Celine Dion
-Mélanie|-+-|Celine Dion
+MÃ©lanie|-+-|Celine Dion
 Chante-Moi|-+-|Celine Dion
 Un Amour Pour Moi|-+-|Celine Dion
-Trop Jeune À Dix-Sept Ans|-+-|Celine Dion
-Mon Rêve De Toujours|-+-|Celine Dion
-Va Où S'En Va L'Amour|-+-|Celine Dion
+Trop Jeune Ã€ Dix-Sept Ans|-+-|Celine Dion
+Mon RÃªve De Toujours|-+-|Celine Dion
+Va OÃ¹ S'En Va L'Amour|-+-|Celine Dion
 Comme On Disait Avant|-+-|Celine Dion
 Benjamin|-+-|Celine Dion
 Trois Heures Vingt|-+-|Celine Dion
 Une Colombe|-+-|Celine Dion
 Paul Et Virginie|-+-|Celine Dion
 Les Oiseaux Du Bonheur|-+-|Celine Dion
-Hymne À L'Amitié|-+-|Celine Dion
+Hymne Ã€ L'AmitiÃ©|-+-|Celine Dion
 C'Est Pour Toi|-+-|Celine Dion
-Tu Es Là|-+-|Celine Dion
+Tu Es LÃ |-+-|Celine Dion
 Dis-Moi Si Je T'Aime|-+-|Celine Dion
 Elle|-+-|Celine Dion
 Pour Vous|-+-|Celine Dion
@@ -5209,10 +5209,10 @@ Incognito|-+-|Celine Dion
 Lolita (Trop Jeune Pour Aimer)|-+-|Celine Dion
 On Traverse Un Miroir|-+-|Celine Dion
 Partout Je Te Vois|-+-|Celine Dion
-Jours De Fièvre|-+-|Celine Dion
+Jours De FiÃ¨vre|-+-|Celine Dion
 D'Abord, C'Est Quoi L'Amour?|-+-|Celine Dion
-Délivre-Moi|-+-|Celine Dion
-Comme Un Cœur Froid|-+-|Celine Dion
+DÃ©livre-Moi|-+-|Celine Dion
+Comme Un CÅ“ur Froid|-+-|Celine Dion
 Hand In Hand|-+-|Celine Dion
 Hand In Hand (Instrumental)|-+-|Celine Dion
 (If There Was) Any Other Way|-+-|Celine Dion
@@ -5229,13 +5229,13 @@ Des Mots Qui Sonnent|-+-|Celine Dion
 Le Monde Est Stone|-+-|Celine Dion
 J'Ai Besoin D'Un Chum|-+-|Celine Dion
 Le Fils De Superman|-+-|Celine Dion
-Je Danse Dans Ma Tête|-+-|Celine Dion
+Je Danse Dans Ma TÃªte|-+-|Celine Dion
 Le Blues Du Businessman|-+-|Celine Dion
 Piaf Chanterait Du Rock|-+-|Celine Dion
-Un Garçon Pas Comme Les Autres (Ziggy)|-+-|Celine Dion
+Un GarÃ§on Pas Comme Les Autres (Ziggy)|-+-|Celine Dion
 Quelqu'Un Que J'Aime, Quelqu'Un Qui M'Aime|-+-|Celine Dion
 Les Uns Contre Les Autres|-+-|Celine Dion
-Oxygène|-+-|Celine Dion
+OxygÃ¨ne|-+-|Celine Dion
 L'Amour Existe Encore|-+-|Celine Dion
 Introduction|-+-|Celine Dion
 Love Can Move Mountains|-+-|Celine Dion
@@ -5245,7 +5245,7 @@ If You Could See Me Now|-+-|Celine Dion
 Halfway To Heaven|-+-|Celine Dion
 Did You Give Enough Love|-+-|Celine Dion
 If I Were You|-+-|Celine Dion
-Peabo Bryson & Céline Dion:Beauty And The Beast|-+-|Celine Dion
+Peabo Bryson & CÃ©line Dion:Beauty And The Beast|-+-|Celine Dion
 I Love You, Goodbye|-+-|Celine Dion
 Little Bit Of Love|-+-|Celine Dion
 Water From The Moon|-+-|Celine Dion
@@ -5277,9 +5277,9 @@ La Memoire D'Abraham|-+-|Celine Dion
 Cherche Encore|-+-|Celine Dion
 Destin|-+-|Celine Dion
 Les Derniers Seront Les Premiers|-+-|Celine Dion
-Céline Dion & Jean-Jacques Goldman:J'Irai Où Tu Iras|-+-|Celine Dion
+CÃ©line Dion & Jean-Jacques Goldman:J'Irai OÃ¹ Tu Iras|-+-|Celine Dion
 J'Attendais|-+-|Celine Dion
-Prière Païenne|-+-|Celine Dion
+PriÃ¨re PaÃ¯enne|-+-|Celine Dion
 Vole|-+-|Celine Dion
 It's All Coming Back To Me Now|-+-|Celine Dion
 Because You Loved Me|-+-|Celine Dion
@@ -5309,7 +5309,7 @@ Miles To Go (Before I Sleep)|-+-|Celine Dion
 Us|-+-|Celine Dion
 Just A Little Bit Of Love|-+-|Celine Dion
 My Heart Will Go On|-+-|Celine Dion
-Céline Dion & Luciano Pavarotti:I Hate You Then I Love You|-+-|Celine Dion
+CÃ©line Dion & Luciano Pavarotti:I Hate You Then I Love You|-+-|Celine Dion
 To Love You More|-+-|Celine Dion
 Let's Talk About Love|-+-|Celine Dion
 Amar Haciendo El Amor|-+-|Celine Dion
@@ -5323,8 +5323,8 @@ En Attendant Ses Pas|-+-|Celine Dion
 Papillon|-+-|Celine Dion
 L'Abandon|-+-|Celine Dion
 Dans Un Autre Monde|-+-|Celine Dion
-Sur Le Même Bateau|-+-|Celine Dion
-Tous Les Blues Sont Écrits Pour Toi|-+-|Celine Dion
+Sur Le MÃªme Bateau|-+-|Celine Dion
+Tous Les Blues Sont Ã‰crits Pour Toi|-+-|Celine Dion
 S'Il Suffisait D'Aimer|-+-|Celine Dion
 O Holy Night|-+-|Celine Dion
 Don't Save It All For Christmas Day|-+-|Celine Dion
@@ -5339,7 +5339,7 @@ Brahms' Lullaby|-+-|Celine Dion
 Christmas Eve|-+-|Celine Dion
 These Are The Special Times|-+-|Celine Dion
 Happy Xmas (War Is Over)|-+-|Celine Dion
-Céline Dion With R. Kelly:I'm Your Angel|-+-|Celine Dion
+CÃ©line Dion With R. Kelly:I'm Your Angel|-+-|Celine Dion
 Feliz Navidad|-+-|Celine Dion
 Les Cloches Du Hameau|-+-|Celine Dion
 That's The Way It Is|-+-|Celine Dion
@@ -5356,7 +5356,7 @@ Je Ne Veux Pas|-+-|Celine Dion
 Comment T'Aimer|-+-|Celine Dion
 La Religieuse|-+-|Celine Dion
 Ne Partez Pas Sans Moi|-+-|Celine Dion
-Céline Dion & Jean-Jacques Goldman:J'irai Où Tu Iras|-+-|Celine Dion
+CÃ©line Dion & Jean-Jacques Goldman:J'irai OÃ¹ Tu Iras|-+-|Celine Dion
 Medley Acoustique|-+-|Celine Dion
 I'm Alive|-+-|Celine Dion
 Right In Front Of You|-+-|Celine Dion
@@ -5422,18 +5422,18 @@ I Believe In You|-+-|Celine Dion
 Ma Nouvelle-France|-+-|Celine Dion
 Plus Haut Que Moi|-+-|Celine Dion
 Ma Chambre|-+-|Celine Dion
-Et S'Il N'En Restait Qu'Une (Je Serais Celle-Là)|-+-|Celine Dion
-Immensité|-+-|Celine Dion
-À Cause|-+-|Celine Dion
+Et S'Il N'En Restait Qu'Une (Je Serais Celle-LÃ )|-+-|Celine Dion
+ImmensitÃ©|-+-|Celine Dion
+Ã€ Cause|-+-|Celine Dion
 Je Cherche L'Ombre|-+-|Celine Dion
 Les Paradis|-+-|Celine Dion
 La Diva|-+-|Celine Dion
 Femme Comme Chacune|-+-|Celine Dion
-Si J'Étais Quelqu'Un|-+-|Celine Dion
+Si J'Ã‰tais Quelqu'Un|-+-|Celine Dion
 Je Ne Suis Pas Celle|-+-|Celine Dion
 Le Temps Qui Compte|-+-|Celine Dion
-Lettre De George Sand À Alfred De Musset|-+-|Celine Dion
-On S'Est Aimé À Cause|-+-|Celine Dion
+Lettre De George Sand Ã€ Alfred De Musset|-+-|Celine Dion
+On S'Est AimÃ© Ã€ Cause|-+-|Celine Dion
 Berceuse|-+-|Celine Dion
 Taking Chances|-+-|Celine Dion
 Alone|-+-|Celine Dion
@@ -5453,7 +5453,7 @@ That's Just The Woman In Me|-+-|Celine Dion
 Skies Of L.A.|-+-|Celine Dion
 Map To My Heart|-+-|Celine Dion
 The Reason I Go On|-+-|Celine Dion
-Parler À Mon Père|-+-|Celine Dion
+Parler Ã€ Mon PÃ¨re|-+-|Celine Dion
 Le Miracle|-+-|Celine Dion
 Qui Peut Vivre Sans Amour ?|-+-|Celine Dion
 L'Amour Peut Prendre Froid|-+-|Celine Dion
@@ -5466,18 +5466,18 @@ Je N'Ai Pas Besoin D'Amour|-+-|Celine Dion
 Si Je N'Ai Rien De Toi|-+-|Celine Dion
 Que Toi Au Monde|-+-|Celine Dion
 Tant De Temps|-+-|Celine Dion
-Les Petits Pieds De Léa|-+-|Celine Dion
+Les Petits Pieds De LÃ©a|-+-|Celine Dion
 Ne Me Quitte Pas|-+-|Celine Dion
-Les Jours Comme Ça|-+-|Celine Dion
+Les Jours Comme Ã‡a|-+-|Celine Dion
 Loved Me Back To Life|-+-|Celine Dion
 Somebody Loves Somebody|-+-|Celine Dion
-Céline Dion & Ne-Yo:Incredible|-+-|Celine Dion
+CÃ©line Dion & Ne-Yo:Incredible|-+-|Celine Dion
 Water And A Flame|-+-|Celine Dion
 Breakaway|-+-|Celine Dion
 Save Your Soul|-+-|Celine Dion
 Didn't Know Love|-+-|Celine Dion
 Thank You|-+-|Celine Dion
-Céline Dion & Stevie Wonder:Overjoyed|-+-|Celine Dion
+CÃ©line Dion & Stevie Wonder:Overjoyed|-+-|Celine Dion
 Thankful|-+-|Celine Dion
 At Seventeen|-+-|Celine Dion
 Always Be Your Girl|-+-|Celine Dion
@@ -5486,18 +5486,18 @@ How Do You Keep The Music Playing?|-+-|Celine Dion
 Lullaby (Goodnight, My Angel)|-+-|Celine Dion
 Open Arms|-+-|Celine Dion
 Plus Qu'Ailleurs|-+-|Celine Dion
-L'Étoile|-+-|Celine Dion
+L'Ã‰toile|-+-|Celine Dion
 Ma Faille|-+-|Celine Dion
 Encore Un Soir|-+-|Celine Dion
 Je Nous Veux|-+-|Celine Dion
 Les Yeux Au Ciel|-+-|Celine Dion
-Si C'Était À Refaire|-+-|Celine Dion
+Si C'Ã‰tait Ã€ Refaire|-+-|Celine Dion
 Ordinaire|-+-|Celine Dion
 Tu Sauras|-+-|Celine Dion
 Toutes Ces Choses|-+-|Celine Dion
 Le Bonheur En Face|-+-|Celine Dion
-À La Plus Haute Branche|-+-|Celine Dion
-À Vous|-+-|Celine Dion
+Ã€ La Plus Haute Branche|-+-|Celine Dion
+Ã€ Vous|-+-|Celine Dion
 Ma Force|-+-|Celine Dion
 Smile|-+-|Lily Allen
 Knock 'Em Out|-+-|Lily Allen
@@ -5517,7 +5517,7 @@ Blank Expression|-+-|Lily Allen
 Absolutely Nothing|-+-|Lily Allen
 U Killed It|-+-|Lily Allen
 Everybody's Changing|-+-|Lily Allen
-NaÃ¯ve|-+-|Lily Allen
+NaÃƒÂ¯ve|-+-|Lily Allen
 Sheezus|-+-|Lily Allen
 L8 CMMR|-+-|Lily Allen
 Air Balloon|-+-|Lily Allen
@@ -5561,14 +5561,14 @@ Well, Well|-+-|Nelly Furtado
 My Love Grows Deeper (Part 1)|-+-|Nelly Furtado
 I Will Make U Cry|-+-|Nelly Furtado
 Scared Of You|-+-|Nelly Furtado
-Onde Estás|-+-|Nelly Furtado
+Onde EstÃ¡s|-+-|Nelly Furtado
 I Feel You|-+-|Nelly Furtado
 One-Trick Pony|-+-|Nelly Furtado
 Powerless (Say What You Want)|-+-|Nelly Furtado
 Explode|-+-|Nelly Furtado
 Try|-+-|Nelly Furtado
 Fresh Off The Boat|-+-|Nelly Furtado
-Força|-+-|Nelly Furtado
+ForÃ§a|-+-|Nelly Furtado
 The Grass Is Green|-+-|Nelly Furtado
 Picture Perfect|-+-|Nelly Furtado
 Saturdays|-+-|Nelly Furtado
@@ -5598,25 +5598,25 @@ Undercover|-+-|Nelly Furtado
 Runaway|-+-|Nelly Furtado
 Crazy|-+-|Nelly Furtado
 Manos Al Aire|-+-|Nelly Furtado
-Más|-+-|Nelly Furtado
+MÃ¡s|-+-|Nelly Furtado
 Mi Plan|-+-|Nelly Furtado
-Sueños|-+-|Nelly Furtado
+SueÃ±os|-+-|Nelly Furtado
 Bajo Otra Luz|-+-|Nelly Furtado
-Vacación|-+-|Nelly Furtado
+VacaciÃ³n|-+-|Nelly Furtado
 Suficiente Tiempo|-+-|Nelly Furtado
 Fuerte|-+-|Nelly Furtado
 Silencio|-+-|Nelly Furtado
 Como Lluvia|-+-|Nelly Furtado
-Felíz Cumpleaños|-+-|Nelly Furtado
+FelÃ­z CumpleaÃ±os|-+-|Nelly Furtado
 Fantasmas|-+-|Nelly Furtado
-Juanes:Fotografía|-+-|Nelly Furtado
+Juanes:FotografÃ­a|-+-|Nelly Furtado
 James Morrison:Broken Strings|-+-|Nelly Furtado
 Girlfriend In The City|-+-|Nelly Furtado
 Night Is Young|-+-|Nelly Furtado
 Stars|-+-|Nelly Furtado
-Michael Bublé:Quando, Quando, Quando|-+-|Nelly Furtado
-Te Busqué|-+-|Nelly Furtado
-Tiësto:Who Wants To Be Alone|-+-|Nelly Furtado
+Michael BublÃ©:Quando, Quando, Quando|-+-|Nelly Furtado
+Te BusquÃ©|-+-|Nelly Furtado
+TiÃ«sto:Who Wants To Be Alone|-+-|Nelly Furtado
 The Roots:Sacrifice|-+-|Nelly Furtado
 Spirit Indestructible|-+-|Nelly Furtado
 Big Hoops (Bigger The Better)|-+-|Nelly Furtado
@@ -5779,7 +5779,7 @@ Ring Ring (Bara Du Slog En Signal)|-+-|ABBA
 Waterloo|-+-|ABBA
 Sitting In The Palmtree|-+-|ABBA
 King Kong Song|-+-|ABBA
-Hasta Mañana|-+-|ABBA
+Hasta MaÃ±ana|-+-|ABBA
 My Mama Said|-+-|ABBA
 Dance (While The Music Still Goes On)|-+-|ABBA
 Honey, Honey|-+-|ABBA
@@ -5840,15 +5840,15 @@ Kisses Of Fire|-+-|ABBA
 Summer Night City|-+-|ABBA
 Lovelight|-+-|ABBA
 Gimme! Gimme! Gimme! (A Man After Midnight)|-+-|ABBA
-Gracias Por La Música|-+-|ABBA
+Gracias Por La MÃºsica|-+-|ABBA
 Reina Danzante|-+-|ABBA
 Al Andar|-+-|ABBA
 Dame! Dame! Dame!|-+-|ABBA
 Fernando (Spanish Version)|-+-|ABBA
-Estoy Soñando|-+-|ABBA
+Estoy SoÃ±ando|-+-|ABBA
 Mamma Mia (Spanish Version)|-+-|ABBA
-Hasta Mañana (Spanish Version)|-+-|ABBA
-Conociéndome, Conociéndote|-+-|ABBA
+Hasta MaÃ±ana (Spanish Version)|-+-|ABBA
+ConociÃ©ndome, ConociÃ©ndote|-+-|ABBA
 Chiquitita (Spanish)|-+-|ABBA
 Super Trouper|-+-|ABBA
 The Winner Takes It All|-+-|ABBA
@@ -5886,21 +5886,21 @@ Abba Undeleted|-+-|ABBA
 You Owe Me One|-+-|ABBA
 Waterloo (French/Swedish)|-+-|ABBA
 Ring Ring (Swedish/Spanish/German)|-+-|ABBA
-Björn Ulvaeus & Benny Andersson:Att Finnas Till|-+-|ABBA
-Agnetha Fältskog:En Sång Och En Saga|-+-|ABBA
-Frida:Ska Man Skratta Eller Gråta|-+-|ABBA
-Björn Ulvaeus & Benny Andersson:Tänk Om Jorden Vore Ung|-+-|ABBA
-Agnetha Fältskog:S.O.S.|-+-|ABBA
+BjÃ¶rn Ulvaeus & Benny Andersson:Att Finnas Till|-+-|ABBA
+Agnetha FÃ¤ltskog:En SÃ¥ng Och En Saga|-+-|ABBA
+Frida:Ska Man Skratta Eller GrÃ¥ta|-+-|ABBA
+BjÃ¶rn Ulvaeus & Benny Andersson:TÃ¤nk Om Jorden Vore Ung|-+-|ABBA
+Agnetha FÃ¤ltskog:S.O.S.|-+-|ABBA
 Frida:Fernando|-+-|ABBA
-Åh, Vilka Tider|-+-|ABBA
+Ã…h, Vilka Tider|-+-|ABBA
 Frida:Som En Sparv|-+-|ABBA
-Agnetha Fältskog:En Sång Om Sorg Och Glädje|-+-|ABBA
-Björn Ulvaeus & Benny Andersson:En Karusell|-+-|ABBA
-Agnetha Fältskog:Drom Är Drom Och Saga Saga|-+-|ABBA
+Agnetha FÃ¤ltskog:En SÃ¥ng Om Sorg Och GlÃ¤dje|-+-|ABBA
+BjÃ¶rn Ulvaeus & Benny Andersson:En Karusell|-+-|ABBA
+Agnetha FÃ¤ltskog:Drom Ã„r Drom Och Saga Saga|-+-|ABBA
 Frida:Man Vill Ju Leva Lite Dessemellan|-+-|ABBA
-Björn Ulvaeus & Benny Andersson:Hej Gamle Man!|-+-|ABBA
-Agnetha Fältskog:Så Glad Som Dina Ögon|-+-|ABBA
-Frida:Vill Du Låna En Man|-+-|ABBA
+BjÃ¶rn Ulvaeus & Benny Andersson:Hej Gamle Man!|-+-|ABBA
+Agnetha FÃ¤ltskog:SÃ¥ Glad Som Dina Ã–gon|-+-|ABBA
+Frida:Vill Du LÃ¥na En Man|-+-|ABBA
 Ring Ring (German Version)|-+-|ABBA
 Wer Im Wartesaal Der Liebe Steht|-+-|ABBA
 The Visitors|-+-|ABBA
@@ -5998,7 +5998,7 @@ A Little Work|-+-|Fergie
 Life Goes On|-+-|Fergie
 M.I.L.F. $|-+-|Fergie
 Save It Til Morning|-+-|Fergie
-EnchantÃ© (Carine)|-+-|Fergie
+EnchantÃƒÂ© (Carine)|-+-|Fergie
 Tension|-+-|Fergie
 L.A. Love (La La)|-+-|Fergie
 Love Is Blind|-+-|Fergie
@@ -6447,11 +6447,11 @@ Spancill Hill|-+-|The Corrs
 Peggy Gordon|-+-|The Corrs
 Black Is The Colour|-+-|The Corrs
 Heart Like A Wheel|-+-|The Corrs
-Buachaill Ón Éirne|-+-|The Corrs
+Buachaill Ã“n Ã‰irne|-+-|The Corrs
 Old Hag|-+-|The Corrs
 Moorlough Shore|-+-|The Corrs
 Dimming Of The Day|-+-|The Corrs
-Bríd Óg Ní Mháille|-+-|The Corrs
+BrÃ­d Ã“g NÃ­ MhÃ¡ille|-+-|The Corrs
 Return From Fingal|-+-|The Corrs
 I Do What I Like|-+-|The Corrs
 Bring On The Night|-+-|The Corrs
@@ -6885,11 +6885,11 @@ Dear John Letter|-+-|Whitney Houston
 Unashamed|-+-|Whitney Houston
 You Light Up My Life|-+-|Whitney Houston
 Whatchulookinat|-+-|Whitney Houston
-The First Nöel|-+-|Whitney Houston
+The First NÃ¶el|-+-|Whitney Houston
 The Christmas Song (Chestnuts Roasting On An Open Fire)|-+-|Whitney Houston
 The Little Drummer Boy|-+-|Whitney Houston
 One Wish (For Christmas)|-+-|Whitney Houston
-Cantique De Nöel (O Holy Night)|-+-|Whitney Houston
+Cantique De NÃ¶el (O Holy Night)|-+-|Whitney Houston
 I'll Be Home For Christmas|-+-|Whitney Houston
 Deck The Halls/Silent Night|-+-|Whitney Houston
 Have Yourself A Merry Little Christmas|-+-|Whitney Houston
@@ -7091,7 +7091,7 @@ Blackout|-+-|David Bowie
 V-2 Schneider|-+-|David Bowie
 Sense Of Doubt|-+-|David Bowie
 Moss Garden|-+-|David Bowie
-Neuköln|-+-|David Bowie
+NeukÃ¶ln|-+-|David Bowie
 The Secret Life Of Arabia|-+-|David Bowie
 Fantastic Voyage|-+-|David Bowie
 African Night Flight|-+-|David Bowie
@@ -7103,7 +7103,7 @@ Look Back In Anger|-+-|David Bowie
 Boys Keep Swinging|-+-|David Bowie
 Repetition|-+-|David Bowie
 Red Money|-+-|David Bowie
-I Pray, Olé|-+-|David Bowie
+I Pray, OlÃ©|-+-|David Bowie
 It's No Game (Part I)|-+-|David Bowie
 Up The Hill Backwards|-+-|David Bowie
 Scary Monsters (And Super Creeps)|-+-|David Bowie
@@ -7370,7 +7370,7 @@ The Bird Diverts The Wolf|-+-|David Bowie
 Peter Catches The Wolf|-+-|David Bowie
 The Hunters Arrive|-+-|David Bowie
 The Procession At The Zoo|-+-|David Bowie
-Héros|-+-|David Bowie
+HÃ©ros|-+-|David Bowie
 Lieb' Dich Bis Dienstag|-+-|David Bowie
 All I Really Want To Do|-+-|Cher
 I Go To Sleep|-+-|Cher
@@ -7631,7 +7631,7 @@ The Power|-+-|Cher
 Runaway|-+-|Cher
 All Or Nothing|-+-|Cher
 Strong Enough|-+-|Cher
-Dov'È L'Amore|-+-|Cher
+Dov'Ãˆ L'Amore|-+-|Cher
 Takin' Back My Heart|-+-|Cher
 Taxi, Taxi|-+-|Cher
 Love Is The Groove|-+-|Cher
@@ -7775,7 +7775,7 @@ Angel|-+-|Sarah McLachlan
 Black And White|-+-|Sarah McLachlan
 Last Dance|-+-|Sarah McLachlan
 Prayer Of Saint Francis|-+-|Sarah McLachlan
-Sweet Surrender (DJ TiÃ«sto Remix)|-+-|Sarah McLachlan
+Sweet Surrender (DJ TiÃƒÂ«sto Remix)|-+-|Sarah McLachlan
 Delerium:Silence|-+-|Sarah McLachlan
 Fallen|-+-|Sarah McLachlan
 World On Fire|-+-|Sarah McLachlan
@@ -8361,7 +8361,7 @@ Need Your Love So Bad|-+-|Bonnie Tyler
 It's Over|-+-|Bonnie Tyler
 Si Demain... (Turn Around)|-+-|Bonnie Tyler
 Simply Believe|-+-|Bonnie Tyler
-Si Tout S'ArrÃªte (It's A Heartache)|-+-|Bonnie Tyler
+Si Tout S'ArrÃƒÂªte (It's A Heartache)|-+-|Bonnie Tyler
 Back In My Arms|-+-|Bonnie Tyler
 Open Your Eyes|-+-|Bonnie Tyler
 Here She Comes|-+-|Bonnie Tyler
