@@ -46,8 +46,8 @@ def fetchSong(song_info, attempt = 0):
         return fetchSong(song_info, attempt = attempt + 1)
       else:
         with open('error.txt', 'w+') as errorfile:
-          f.write('error on this song:')
-          f.write('  {}'.format(song_info))
+          errorfile.write('error on this song:')
+          errorfile.write('  {}'.format(song_info))
         return
 
     else:
@@ -76,9 +76,9 @@ def main(genre, path_in, path_out, append):
 
   else:
     lyric_data = {}
-    lyric_data['genre'] = genre
     lyric_data['lyrics'] = {}
 
+  lyric_data['genre'] = genre
   number_tried = 0
   number_found = 0
 
@@ -100,8 +100,9 @@ def main(genre, path_in, path_out, append):
         lyrics = re.sub('\\[.*?\\]', '', lyrics)
         lyric_data['lyrics'][song_info] = {"title":song.title,
         "artist":song.artist,"lyrics":lyrics}
-        print('{f}/{t} found in this session, {e}/{o} found overall.\n'.format(
-          f = number_found, t = number_tried,
+        print(('\nGENRE: {g}\n{f}/{t} found in this session, '
+          '{e}/{o} found overall.').format(
+          g = genre, f = number_found, t = number_tried,
           e = len(lyric_data['lyrics']), o = len(content)))
 
       if(number_found % 25 == 0):
