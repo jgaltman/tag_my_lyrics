@@ -1,6 +1,10 @@
 # Specify filepatterns you want git to ignore.
 
+#project specific
+##############
 **.pickle
+glove.*
+
 
 *.ini
 # Compiled source #
@@ -35,6 +39,8 @@
 ehthumbs.db
 Thumbs.db
 
-
+#Python Specific
+##############
+*.ipynb_checkpoints/
 *.cpython-36.pyc
 *.pyc
