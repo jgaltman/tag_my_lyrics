@@ -9,15 +9,18 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Model
-from tensorflow.keras import backend as K
+from tensorflow.keras import backend
 import pickle
 import matplotlib.pyplot as plt
 from pprint import pprint
 import re
+from tensorflow.python.client import device_lib
 
-sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+device_lib.list_local_devices()
 
-K.set_session(sess)
+# sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+
+# backend.set_session(sess)
 
 # In[131]:
 
@@ -45,7 +48,9 @@ RAP_PATH = 'Rap.pickle'
 
 LYRIC_PATHS = [CHRISTIAN_PATH,POP_PATH,ROCK_PATH,COUNTRY_PATH,RAP_PATH]
 
-EMBEDDING_PATH = 'data/glove_embeddings/'
+DATA_PATH = 'data/'
+EMBEDDING_DIR = 'glove_embeddings'
+EMBEDDING_PATH = DATA_PATH + EMBEDDING_DIR
 EMBEDDING_FILE = 'glove.6B.'+str(EMBEDDING_DIM)+'d.txt'
 
 
@@ -57,10 +62,12 @@ EMBEDDING_FILE = 'glove.6B.'+str(EMBEDDING_DIM)+'d.txt'
 # elmo = hub.Module("https://tfhub.dev/google/elmo/2", trainable=True)
 if not os.path.exists(EMBEDDING_PATH+EMBEDDING_FILE):
     print('Embeddings not found, downloading now')
-    get_ipython().system(' cd EMBEDDING_PATH')
-    get_ipython().system(' wget http://nlp.stanford.edu/data/glove.6B.zip')
-    get_ipython().system(' unzip glove.6B.zip')
-    get_ipython().system(' cd ../..c')
+    os.system(' cd ' + DATA_PATH)
+    os.system(' mkdir ' + EMBEDDING_DIR)
+    os.system(' cd ' + EMBEDDING_DIR)
+    os.system(' wget http://nlp.stanford.edu/data/glove.6B.zip')
+    os.system(' unzip glove.6B.zip')
+    os.system(' cd ../..')
 
 glove_embeddings = {}
 with open(EMBEDDING_PATH+EMBEDDING_FILE) as emb_f:
