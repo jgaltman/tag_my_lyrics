@@ -1,28 +1,34 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[70]:
+# In[9]:
+
 
 import os
 import sys
+import re
+import pickle
 import numpy as np
+from pprint import pprint
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Model
 from tensorflow.keras import backend
-import pickle
-import matplotlib.pyplot as plt
-from pprint import pprint
-import re
 from tensorflow.python.client import device_lib
+from tensorflow.keras.models import model_from_json
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
-device_lib.list_local_devices()
-
+device = device_lib.list_local_devices()
+print(device)
 # sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
 
 # backend.set_session(sess)
 
+
 # In[131]:
+
 
 #CONSTANTS
 MAX_SONG_LENGTH = 2500
@@ -48,9 +54,7 @@ RAP_PATH = 'Rap.pickle'
 
 LYRIC_PATHS = [CHRISTIAN_PATH,POP_PATH,ROCK_PATH,COUNTRY_PATH,RAP_PATH]
 
-DATA_PATH = 'data/'
-EMBEDDING_DIR = 'glove_embeddings'
-EMBEDDING_PATH = DATA_PATH + EMBEDDING_DIR
+EMBEDDING_PATH = 'data/glove_embeddings/'
 EMBEDDING_FILE = 'glove.6B.'+str(EMBEDDING_DIM)+'d.txt'
 
 
@@ -62,6 +66,8 @@ EMBEDDING_FILE = 'glove.6B.'+str(EMBEDDING_DIM)+'d.txt'
 # elmo = hub.Module("https://tfhub.dev/google/elmo/2", trainable=True)
 if not os.path.exists(EMBEDDING_PATH+EMBEDDING_FILE):
     print('Embeddings not found, downloading now')
+    print(os.system('pwd'))
+    sys.exit()
     os.system(' cd ' + DATA_PATH)
     os.system(' mkdir ' + EMBEDDING_DIR)
     os.system(' cd ' + EMBEDDING_DIR)
@@ -186,7 +192,7 @@ print(len(lyrics))
 print(len(lyrics_labels))
 
 
-# In[118]:
+# In[140]:
 
 
 MAX_UNIQUE_WORDS = len(total_words_set)
@@ -203,7 +209,7 @@ labels = keras.utils.to_categorical(np.asarray(lyrics_labels))
 
 
 
-# In[126]:
+# In[141]:
 
 
 # split the data into a training set and a validation set
@@ -212,22 +218,43 @@ np.random.shuffle(indices)
 data = data[indices]
 labels = labels[indices]
 
-num_test_samples = int(TEST_SPLIT * data.shape[0])
-num_validation_samples = int(VALIDATION_SPLIT * (data.shape[0]-num_test_samples))
+t_data = data[:int(data.shape[0]*.1)]
+t_labels = labels[:int(data.shape[0]*.1)]
 
-x_test = data[:num_test_samples]
-y_test = labels[:num_test_samples]
-x_val = data[num_test_samples:num_test_samples+num_validation_samples]
-y_val = labels[num_test_samples:num_test_samples+num_validation_samples]
-x_train = data[num_test_samples+num_validation_samples:]
-y_train = labels[num_test_samples+num_validation_samples:]
+# NO GPU so must downsize
+CPU=False
+if not CPU:
+    num_test_samples = int(TEST_SPLIT * data.shape[0])
+    num_validation_samples = int(VALIDATION_SPLIT * (data.shape[0]-num_test_samples))
 
+    x_test = data[:num_test_samples]
+    y_test = labels[:num_test_samples]
+    x_val = data[num_test_samples:num_test_samples+num_validation_samples]
+    y_val = labels[num_test_samples:num_test_samples+num_validation_samples]
+    x_train = data[num_test_samples+num_validation_samples:]
+    y_train = labels[num_test_samples+num_validation_samples:]
+    
+else:
+    num_test_samples = int(TEST_SPLIT * t_data.shape[0])
+    num_validation_samples = int(VALIDATION_SPLIT * (t_data.shape[0]-num_test_samples))
+
+    x_test = t_data[:num_test_samples]
+    y_test = t_labels[:num_test_samples]
+    x_val = t_data[num_test_samples:num_test_samples+num_validation_samples]
+    y_val = t_labels[num_test_samples:num_test_samples+num_validation_samples]
+    x_train = t_data[num_test_samples+num_validation_samples:]
+    y_train = t_labels[num_test_samples+num_validation_samples:]
+    
 print('data tensor:', data.shape)
-print('label tensor:', labels.shape)
 print('test tensor:', x_test.shape)
 print('validate tensor:', x_val.shape)
 print('train tensor:', x_train.shape)
 print('valid splits: ', x_test.shape[0]+x_val.shape[0]+x_train.shape[0] == data.shape[0])
+print('label tensor:', labels.shape)
+print('test tensor:', y_test.shape)
+print('validate tensor:', y_val.shape)
+print('train tensor:', y_train.shape)
+print('valid splits: ', y_test.shape[0]+y_val.shape[0]+y_train.shape[0] == data.shape[0])
 
 print('Preparing embedding matrix.')
 # prepare embedding matrix
@@ -252,7 +279,37 @@ embedding_layer = keras.layers.Embedding(unique_words_count,
                             trainable=False)
 
 
-# In[ ]:
+# In[10]:
+
+
+# save model
+def save_model(filename,weights_filename):
+    # serialize model to JSON
+    model_json = model.to_json()
+    with open(filename, "w") as json_file:
+        json_file.write(model_json)
+    # serialize weights to HDF5
+    model.save_weights(weights_filename)
+    print("Saved model to disk")
+
+
+# In[11]:
+
+
+
+def load_model(filename,weights_filename):
+    # load json and create model
+    json_file = open(filename, 'r')
+    loaded_model_json = json_file.read()
+    json_file.close()
+    loaded_model = model_from_json(loaded_model_json)
+    # load weights into new model
+    loaded_model.load_weights(weights_filename)
+    print("Loaded model from disk")
+    return loaded_model
+
+
+# In[142]:
 
 
 print('Training model.')
@@ -280,7 +337,7 @@ model.compile(loss='categorical_crossentropy',
               metrics=['acc'])
 
 model_details = model.fit(x_train, y_train,
-            epochs=100,
+            epochs=1,
             shuffle=True,
             verbose=1,
             validation_data=(x_val, y_val))
@@ -288,20 +345,6 @@ model_details = model.fit(x_train, y_train,
 scores = model.evaluate(x_test,y_test, verbose=0)
 print('Test loss:', scores[0])
 print('Test accuracy:', scores[1])
-
-
-# In[119]:
-
-
-print(type(labels))
-print(len(labels))
-print(labels)
-print('Shape of data tensor:', data.shape)
-print('Shape of label tensor:', labels.shape)
-# print(str(len(lyrics)) +' : '+ str(len(sequences)))
-# print(str(len(lyrics[0].split())) +' : '+ str(len(sequences[0])))
-# print(sequences[0])
-# print(lyrics[0])
 
 
 # In[ ]:
