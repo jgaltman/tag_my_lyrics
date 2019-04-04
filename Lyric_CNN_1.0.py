@@ -9,14 +9,17 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Model
+from tensorflow.keras import backend as K
 import pickle
 import matplotlib.pyplot as plt
 from pprint import pprint
 import re
 
+sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+
+K.set_session(sess)
 
 # In[131]:
-
 
 #CONSTANTS
 MAX_SONG_LENGTH = 2500
