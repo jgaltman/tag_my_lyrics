@@ -40,7 +40,8 @@ max_grad_norm = 1.
 dropout = 0.5
 EMBEDDING_DIM = 200
 
-
+MODEL_FILE_NAME = 'cnn_model_1.0.json'
+MODEL_FILE_WEIGHTS = 'cnn_model_1.0.h5'
 # In[83]:
 
 
@@ -289,6 +290,7 @@ def save_model(filename,weights_filename):
     with open(filename, "w") as json_file:
         json_file.write(model_json)
     # serialize weights to HDF5
+    # model.save_weights("model.h5")
     model.save_weights(weights_filename)
     print("Saved model to disk")
 
@@ -346,6 +348,7 @@ scores = model.evaluate(x_test,y_test, verbose=0)
 print('Test loss:', scores[0])
 print('Test accuracy:', scores[1])
 
+save_model(MODEL_FILE_NAME,MODEL_FILE_WEIGHTS)
 
 # In[ ]:
 
