@@ -22,9 +22,9 @@ import matplotlib.pyplot as plt
 
 device = device_lib.list_local_devices()
 print(device)
-# sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
 
-# backend.set_session(sess)
+backend.set_session(sess)
 
 
 # In[131]:
