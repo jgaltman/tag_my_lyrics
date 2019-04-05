@@ -22,9 +22,9 @@ import matplotlib.pyplot as plt
 
 device = device_lib.list_local_devices()
 print(device)
-sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+# sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
 
-backend.set_session(sess)
+# backend.set_session(sess)
 
 
 # In[131]:
@@ -76,14 +76,15 @@ if not os.path.exists(EMBEDDING_PATH+EMBEDDING_FILE):
     os.system(' unzip glove.6B.zip')
     os.system(' cd ../..')
 
+print('loading embeddings')
 glove_embeddings = {}
-with open(EMBEDDING_PATH+EMBEDDING_FILE) as emb_f:
+with open(EMBEDDING_PATH+EMBEDDING_FILE, encoding="utf-8") as emb_f:
     for line in emb_f:
         values = line.split()
         word = values[0]
         vector = np.asarray(values[1:], dtype='float32')
         glove_embeddings[word] = vector
-
+print('finished loading embeddings')
 
 # In[94]:
 
@@ -91,6 +92,7 @@ with open(EMBEDDING_PATH+EMBEDDING_FILE) as emb_f:
 # Pickle extraction
 # pickle looks like -> pickle_lyrics['lyrics'][('song_title', 'artist')]['lyrics']
 # or - > pickle_lyrics['genre']
+print('loading pickle')
 pickle_lyrics = []
 genre_index = {}
 max_length = 0
@@ -113,6 +115,7 @@ print(len(pickle_lyrics))
 print(genre_index)
 # print(max_length)
 # print(pickle_lyrics[0]['lyrics']['Cabin Essence: Chorus', 'The Beach Boys']['lyrics'])
+print('finished loading pickle')
 
 
 # In[95]:
