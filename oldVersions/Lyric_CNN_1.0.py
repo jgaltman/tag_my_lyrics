@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[9]:
+# In[1]:
 
 
 import os
 import sys
 import re
 import pickle
+# import nltk
 import numpy as np
 from pprint import pprint
 import tensorflow as tf
@@ -19,15 +20,17 @@ from tensorflow.keras.models import model_from_json
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+# nltk.download('stopwords')
+# nltk.download('punkt')
 
 device = device_lib.list_local_devices()
 print(device)
-# sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
 
-# backend.set_session(sess)
+backend.set_session(sess)
 
 
-# In[131]:
+# In[12]:
 
 
 #CONSTANTS
@@ -35,14 +38,14 @@ MAX_SONG_LENGTH = 2500
 # MAX_NUM_WORDS = 20000
 VALIDATION_SPLIT = 0.3
 TEST_SPLIT = 0.2
-learning_rate = .001
+SONG_PER_GENRE = 4500
+learning_rate = .0000001
 max_grad_norm = 1.
 dropout = 0.5
 EMBEDDING_DIM = 200
 
-MODEL_FILE_NAME = 'cnn_model_1.0.json'
-MODEL_FILE_WEIGHTS = 'cnn_model_1.0.h5'
-# In[83]:
+
+# In[3]:
 
 
 # PATH CONSTANTS
@@ -59,16 +62,16 @@ EMBEDDING_PATH = 'data/glove_embeddings/'
 EMBEDDING_FILE = 'glove.6B.'+str(EMBEDDING_DIM)+'d.txt'
 
 
-# In[68]:
+# In[4]:
 
 
 # Embedding
 # Elmo could improve the word embeddings - need more research
 # elmo = hub.Module("https://tfhub.dev/google/elmo/2", trainable=True)
+print('loading embedding')
 if not os.path.exists(EMBEDDING_PATH+EMBEDDING_FILE):
     print('Embeddings not found, downloading now')
     print(os.system('pwd'))
-    sys.exit()
     os.system(' cd ' + DATA_PATH)
     os.system(' mkdir ' + EMBEDDING_DIR)
     os.system(' cd ' + EMBEDDING_DIR)
@@ -76,26 +79,26 @@ if not os.path.exists(EMBEDDING_PATH+EMBEDDING_FILE):
     os.system(' unzip glove.6B.zip')
     os.system(' cd ../..')
 
-print('loading embeddings')
 glove_embeddings = {}
-with open(EMBEDDING_PATH+EMBEDDING_FILE, encoding="utf-8") as emb_f:
+with open(EMBEDDING_PATH+EMBEDDING_FILE, encoding='utf-8') as emb_f:
     for line in emb_f:
         values = line.split()
         word = values[0]
         vector = np.asarray(values[1:], dtype='float32')
         glove_embeddings[word] = vector
-print('finished loading embeddings')
+print('finished loading embedding')
 
-# In[94]:
+
+# In[5]:
 
 
 # Pickle extraction
 # pickle looks like -> pickle_lyrics['lyrics'][('song_title', 'artist')]['lyrics']
 # or - > pickle_lyrics['genre']
-print('loading pickle')
+print('loading pickles')
+
 pickle_lyrics = []
 genre_index = {}
-max_length = 0
 for i,l_path in enumerate(LYRIC_PATHS):
     if not os.path.exists(PICKLE_ROOT+l_path):
         print('problem occured looking for %s' %(PICKLE_ROOT+l_path))
@@ -105,102 +108,68 @@ for i,l_path in enumerate(LYRIC_PATHS):
     genre_index[loaded_lyrics['genre']] = i
     pickle_lyrics.append(loaded_lyrics)
     print(len(loaded_lyrics['lyrics']))
-    for key, song_info in loaded_lyrics['lyrics'].items():
-        if len(song_info['lyrics'].split()) > max_length:
-            max_length = len(song_info['lyrics'].split())
-#             print(key)
-#             print(max_length)
-#             print(i)
+
 print(len(pickle_lyrics))
 print(genre_index)
-# print(max_length)
-# print(pickle_lyrics[0]['lyrics']['Cabin Essence: Chorus', 'The Beach Boys']['lyrics'])
-print('finished loading pickle')
+print('finished loading pickles')
 
 
-# In[95]:
-
-
-def check_validity(data):
-    valid_count = 0
-    max_len_key = ''
-    max_len = 0
-    total_words = []
-    for key, song_info in data['lyrics'].items():
-        title, artist = key
-        inner_title = song_info['title']
-        inner_artist = song_info['artist']
-        song_lyrics = song_info['lyrics']
-        song_lyrics_norm = re.sub(r'[^a-zA-Z0-9-\']', ' ', song_lyrics).strip()
-        song_lyrics_split = song_lyrics_norm.split()         
-        if title == inner_title and artist == inner_artist and len(song_lyrics_split) <= MAX_SONG_LENGTH:
-            if len(song_lyrics_split) > max_len:
-                max_len = len(song_lyrics_split)
-                max_len_key = key
-            valid_count+=1
-            total_words = list(set(total_words+song_lyrics_split))
-    print(max_len_key)
-    print(max_len)
-    return valid_count, total_words
-
-for data in pickle_lyrics:
-    print(data['genre'])
-    total_songs = len(data['lyrics'])
-    total_words_set = []
-    valid, total_words = check_validity(data)
-    total_words_set  = list(set(total_words_set+total_words))
-    print(total_songs, ' : ', valid)
-print(len(total_words_set))
-
-
-# In[98]:
+# In[28]:
 
 
 def clean_data(data):
     song_list = []
+    unique_words_list = []
+    count = 0
     for key, song_info in data['lyrics'].items():
         title, artist = key
         inner_title = song_info['title']
+        if count%1000==0:
+            print('%d: %s' %(count, inner_title))
         inner_artist = song_info['artist']
         song_lyrics = song_info['lyrics']
         song_lyrics_norm = re.sub(r'[^a-zA-Z0-9-\']', ' ', song_lyrics).strip()
-        song_lyrics_split = song_lyrics_norm.split()         
-        if title == inner_title and artist == inner_artist and len(song_lyrics_split) <= MAX_SONG_LENGTH:       
+        song_lyrics_split = song_lyrics_norm.lower().split()        
+        if len(song_lyrics_split) <= MAX_SONG_LENGTH:       
             song_list.append(song_lyrics_norm)
-            
-    return song_list
+            unique_words_list = list(set(unique_words_list + song_lyrics_split))
+        count+=1
+        if count >= SONG_PER_GENRE:
+            print('hit max songs: %d' %(SONG_PER_GENRE))
+            print('songs left out: %d' %(len(data['lyrics'])-SONG_PER_GENRE))
+            return song_list, unique_words_list
+       
+    return song_list, unique_words_list
 # initial data pre-processing
 # assuming a list of tokenized data 
 # vocab_processor = tf.contrib.learn.preprocessing.VocabularyProcessor(max_document_len)
-
+print('cleaning data')
 lyrics = []
 lyrics_labels = []
+unique_words_set = []
 for data in pickle_lyrics:
     genre = data['genre']
-#     for key, song_info in data['lyrics'].items():
-#         song_lyrics = song_info['lyrics']
-#         song_lyrics_norm = re.sub(r'[^a-zA-Z0-9-\']', ' ', song_lyrics).strip()
-#         song_lyrics_split = song_lyrics_norm.split() 
-#         print(song_lyrics)
-#         print()
-#         print(song_lyrics_norm)
-#         print()
-#         print(song_lyrics_split)
-    song_list = clean_data(data)
-    
+    print('cleaning: %s' %(genre))
+    song_list, unique_words = clean_data(data)
+    unique_words_set = list(set(unique_words_set+unique_words))
     song_labels = [genre_index[genre]]*len(song_list)
     
     lyrics = lyrics + song_list
     lyrics_labels = lyrics_labels + song_labels
-print(len(lyrics))
-print(len(lyrics_labels))
+print('\n\n')
+print('number of songs: %d' %(len(lyrics)))
+print('number of lyrics: %d' %(len(lyrics_labels)))
+print('number of unique words: %d' %(len(unique_words_set)))
+print('finished cleaning data')
 
 
-# In[140]:
+# In[29]:
 
 
-MAX_UNIQUE_WORDS = len(total_words_set)
+# MAX_UNIQUE_WORDS = len(unique_words_set)
+MAX_UNIQUE_WORDS = 20000
 # data preparing
+print('tokenizing')
 tokenizer = keras.preprocessing.text.Tokenizer(num_words=MAX_UNIQUE_WORDS)
 tokenizer.fit_on_texts(lyrics)
 sequences = tokenizer.texts_to_sequences(lyrics)
@@ -211,9 +180,10 @@ print('Unique words tokens %d' % (len(word_index)))
 data = keras.preprocessing.sequence.pad_sequences(sequences, maxlen=MAX_SONG_LENGTH)
 labels = keras.utils.to_categorical(np.asarray(lyrics_labels))
 
+print('finished tokenizing')
 
 
-# In[141]:
+# In[30]:
 
 
 # split the data into a training set and a validation set
@@ -283,7 +253,7 @@ embedding_layer = keras.layers.Embedding(unique_words_count,
                             trainable=False)
 
 
-# In[10]:
+# In[31]:
 
 
 # save model
@@ -293,12 +263,11 @@ def save_model(filename,weights_filename):
     with open(filename, "w") as json_file:
         json_file.write(model_json)
     # serialize weights to HDF5
-    # model.save_weights("model.h5")
     model.save_weights(weights_filename)
     print("Saved model to disk")
 
 
-# In[11]:
+# In[32]:
 
 
 
@@ -314,7 +283,7 @@ def load_model(filename,weights_filename):
     return loaded_model
 
 
-# In[142]:
+# In[33]:
 
 
 print('Training model.')
@@ -342,7 +311,7 @@ model.compile(loss='categorical_crossentropy',
               metrics=['acc'])
 
 model_details = model.fit(x_train, y_train,
-            epochs=1,
+            epochs=100,
             shuffle=True,
             verbose=1,
             validation_data=(x_val, y_val))
@@ -351,7 +320,6 @@ scores = model.evaluate(x_test,y_test, verbose=0)
 print('Test loss:', scores[0])
 print('Test accuracy:', scores[1])
 
-save_model(MODEL_FILE_NAME,MODEL_FILE_WEIGHTS)
 
 # In[ ]:
 
