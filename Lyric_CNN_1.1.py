@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[100]:
+# In[1]:
 
 
 import os
 import sys
 import re
 import pickle
+import itertools
 import numpy as np
+import math as m
 from pprint import pprint
 import tensorflow as tf
 from tensorflow import keras
@@ -16,10 +18,15 @@ from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras import backend
 from tensorflow.python.client import device_lib
 from tensorflow.keras.models import model_from_json
-
+from tensorflow.keras.layers import Dense, Input, Flatten, Reshape, concatenate, Dropout
+from tensorflow.keras.layers import Conv1D, Conv2D, MaxPooling1D, MaxPooling2D, Embedding
+from tensorflow.keras.layers import LSTM, Bidirectional
+from tensorflow.keras import optimizers
+from tensorflow.keras import regularizers
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+from sklearn.metrics import confusion_matrix
 #### Uncomment on server
 # device = device_lib.list_local_devices()
 # print(device)
@@ -28,20 +35,16 @@ import matplotlib.pyplot as plt
 # backend.set_session(sess)
 
 
-# In[165]:
+# In[17]:
 
 
 #CONSTANTS
-VALIDATION_SPLIT = 0.3
+VALIDATION_SPLIT = 0.33
 TEST_SPLIT = 0.2
 learning_rate = .001
 max_grad_norm = 1.
 DROPOUT = 0.5
-EMBEDDING_DIM = 200
-
-
-# In[3]:
-
+EMBEDDING_DIM = 100
 
 # PATH CONSTANTS
 PICKLE_ROOT = 'data/lyrics/'
@@ -50,19 +53,15 @@ PICKLE_INPUT = 'CNN_input.pickle'
 EMBEDDING_PATH = 'data/glove_embeddings/'
 EMBEDDING_FILE = 'glove.6B.'+str(EMBEDDING_DIM)+'d.txt'
 
-MODEL_SAVE_FILE = 'cnn_model_1.0.json'
-MODEL_SAVE_WEIGHTS_FILE = 'cnn_model_1.0.h5'
-
-
-# In[160]:
-
+MODEL_SAVE_FILE = 'cnn_model_1.1.json'
+MODEL_SAVE_WEIGHTS_FILE = 'cnn_model_1.1.h5'
 
 # Default values - changed later
 MAX_SONG_LENGTH = 2500
 MAX_UNIQUE_WORDS = 20000
 
 
-# In[39]:
+# In[4]:
 
 
 # Embedding
@@ -89,7 +88,7 @@ with open(EMBEDDING_PATH+EMBEDDING_FILE, encoding='utf-8') as emb_f:
 print('finished loading embedding')
 
 
-# In[191]:
+# In[5]:
 
 
 
@@ -108,7 +107,7 @@ print('longest song: %d' %(MAX_SONG_LENGTH))
 print('finished loading pickles')
 
 
-# In[192]:
+# In[6]:
 
 
 # MAX_UNIQUE_WORDS = len(unique_words_set)
@@ -128,7 +127,7 @@ labels = keras.utils.to_categorical(np.asarray(lyrics_labels))
 print('finished tokenizing')
 
 
-# In[152]:
+# In[7]:
 
 
 # save model
@@ -142,7 +141,7 @@ def save_model(nn_model,filename,weights_filename):
     print("Saved model to disk")
 
 
-# In[153]:
+# In[8]:
 
 
 
@@ -158,7 +157,7 @@ def load_model(filename,weights_filename):
     return loaded_model
 
 
-# In[193]:
+# In[9]:
 
 
 # split the data into a training set and a validation set
@@ -167,13 +166,11 @@ np.random.shuffle(indices)
 data = data[indices]
 labels = labels[indices]
 
-
-
 t_data = data[:int(data.shape[0]*.1)]
 t_labels = labels[:int(data.shape[0]*.1)]
 
 # NO GPU so must downsize
-CPU=False
+CPU=True
 if not CPU:
     num_test_samples = int(TEST_SPLIT * data.shape[0])
     x_test = data[:num_test_samples]
@@ -213,92 +210,226 @@ for word, i in word_index.items():
         embedding_matrix[i] = embedding_vector
 
 
-# In[230]:
+# In[10]:
+
+
+def create_complex_cnn_model(embedding_trained):
+
+    embedding_layer = keras.layers.Embedding(unique_words_count,
+                                EMBEDDING_DIM,
+                                weights=[embedding_matrix],
+                                input_length=MAX_SONG_LENGTH,
+                                trainable=embedding_trained)
+    CONV1D_OUT = 256
+    CONV1D_OUT2 = CONV1D_OUT//2
+    CONV1D_OUT3 = CONV1D_OUT2//2
+    OUT = 5
+    MAX_POOLING_1 = 8
+    MAX_POOLING_2 = 8
+    MAX_POOLING_4 = 13 #when MAX_SONG_LENGTH = 1300
+    # MAX_POOLING_3 = 47 #when MAX_SONG_LENGTH = 1300
+    # MAX_POOLING_2 = 35 #when MAX_SONG_LENGTH = 1000
+    # DROPOUT = 0.5
+
+    # conv1d = single spatial convolution of 2d input (sequence of 1000 - 200 demention vectors)
+    # maxpooling1d = randomly downsizes by pooling val
+    # dropout = randomly zeros at dropout rate to avoid overfitting
+
+    model2 = Sequential()
+    model2.add(embedding_layer)
+
+    model2.add(tf.keras.layers.Conv1D(CONV1D_OUT, OUT, activation='relu'))
+    model2.add(tf.keras.layers.MaxPooling1D(MAX_POOLING_1))
+    model2.add(tf.keras.layers.Dropout(DROPOUT))
+
+    model2.add(tf.keras.layers.Conv1D(CONV1D_OUT2, OUT, activation='relu'))
+    model2.add(tf.keras.layers.MaxPooling1D(MAX_POOLING_2))
+    model2.add(tf.keras.layers.Dropout(DROPOUT))
+
+    model2.add(tf.keras.layers.Conv1D(CONV1D_OUT2, OUT, activation='relu'))
+    model2.add(tf.keras.layers.MaxPooling1D(MAX_POOLING_3))
+    model2.add(tf.keras.layers.Flatten())
+
+    model2.add(tf.keras.layers.Dense(CONV1D_OUT3, activation='relu'))
+    model2.add(tf.keras.layers.Dense(len(genre_index), activation='softmax'))
+
+    # opt = tf.keras.optimizers.RMSprop(lr=learning_rate, clipnorm=max_grad_norm)
+    model2.compile(loss='categorical_crossentropy',
+                  optimizer='adam',
+                  metrics=['acc'])
+    return model2
+
+
+# In[11]:
+
+
+def create_basic_cnn_model():
+    embedding_layer = keras.layers.Embedding(unique_words_count,
+                                EMBEDDING_DIM,
+                                weights=[embedding_matrix],
+                                input_length=MAX_SONG_LENGTH,
+                                trainable=False)
+    model = Sequential()
+    model.add(embedding_layer)
+    model.add(keras.layers.Conv1D(128, 5, activation='relu'))
+    model.add(keras.layers.GlobalMaxPooling1D())
+    model.add(keras.layers.Dense(10, activation='relu'))
+    model.add(keras.layers.Dense(len(genre_index), activation='softmax'))
+    model.compile(loss='categorical_crossentropy',
+                  optimizer='adam',
+                  metrics=['acc'])
+    return model
+
+
+# In[18]:
+
+
+def create_2dconv_model():
+    embedding_layer = keras.layers.Embedding(unique_words_count,
+                                EMBEDDING_DIM,
+                                weights=[embedding_matrix],
+                                input_length=MAX_SONG_LENGTH,
+                                trainable=True)
+    
+    sequence_input = Input(shape=(MAX_SONG_LENGTH,))
+    embedded_sequences = embedding_layer(sequence_input)
+#     print(embedded_sequences.shape)
+    # add first conv filter
+    embedded_sequences = Reshape((MAX_SONG_LENGTH, EMBEDDING_DIM, 1))(embedded_sequences)
+    x = Conv2D(100, (5, EMBEDDING_DIM), activation='relu')(embedded_sequences)
+    x = MaxPooling2D((MAX_SONG_LENGTH - 10 + 1, 1))(x)
+    # add second conv filter.
+    y = Conv2D(100, (4, EMBEDDING_DIM), activation='relu')(embedded_sequences)
+    y = MaxPooling2D((MAX_SONG_LENGTH - 8 + 1, 1))(y)
+    # add third conv filter.
+    z = Conv2D(100, (3, EMBEDDING_DIM), activation='relu')(embedded_sequences)
+    z = MaxPooling2D((MAX_SONG_LENGTH - 6 + 1, 1))(z)
+    # concate the conv layers
+    alpha = concatenate([x,y,z])
+    
+    alpha = Dropout(0.5)(alpha)
+    
+    # flatted the pooled features.
+    alpha = Flatten()(alpha)
+    
+    # dropout
+    alpha = Dropout(0.5)(alpha)
+    
+#   alpha = Dense(50, activation='relu')(alpha)
+    
+    # predictions
+    preds = Dense(len(genre_index), activation='softmax')(alpha)
+    # build model
+    model = Model(sequence_input, preds)
+#     adadelta = optimizers.Adam()
+        
+    model.compile(loss='categorical_crossentropy',
+                  optimizer='adam',
+                  metrics=['acc'])
+    
+    return model
+
+
+# In[13]:
+
+
+def create_conv_lstm_model():
+    embedding_layer = keras.layers.Embedding(unique_words_count,
+                                EMBEDDING_DIM,
+                                weights=[embedding_matrix],
+                                input_length=MAX_SONG_LENGTH,
+                                trainable=False)
+    model_conv = Sequential()
+    model_conv.add(embedding_layer)
+    model_conv.add(Dropout(0.2))
+    model_conv.add(Conv1D(64, 5, activation='relu'))
+    model_conv.add(MaxPooling1D(pool_size=4))
+    model_conv.add(LSTM(EMBEDDING_DIM))
+    model_conv.add(Dense(len(genre_index), activation='softmax'))
+    model_conv.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
+    return model_conv
+
+
+# In[19]:
 
 
 print('Building model')
-# load pre-trained word embeddings into an Embedding layer
-# note that we set trainable = False so as to keep the embeddings fixed
-embedding_layer = keras.layers.Embedding(unique_words_count,
-                            EMBEDDING_DIM,
-                            weights=[embedding_matrix],
-                            input_length=MAX_SONG_LENGTH,
-                            trainable=False)
-
-CONV1D_OUT = 128
-OUT = 5
-MAX_POOLING_1 = 5
-MAX_POOLING_2 = 47
-DROPOUT = 0.5
-
-# conv1d = single spatial convolution of 2d input (sequence of 1000 - 200 demention vectors)
-# maxpooling1d = randomly downsizes by pooling val
-# dropout = randomly zeros at dropout rate to avoid overfitting
-
-model2 = Sequential()
-model2.add(embedding_layer)
-model2.add(tf.keras.layers.Conv1D(CONV1D_OUT, OUT, activation='relu'))
-model2.add(tf.keras.layers.MaxPooling1D(MAX_POOLING_1))
-model2.add(tf.keras.layers.Dropout(DROPOUT))
-
-model2.add(tf.keras.layers.Conv1D(CONV1D_OUT, OUT, activation='relu'))
-model2.add(tf.keras.layers.MaxPooling1D(MAX_POOLING_1))
-model2.add(tf.keras.layers.Dropout(DROPOUT))
-
-model2.add(tf.keras.layers.Conv1D(CONV1D_OUT, OUT, activation='relu'))
-model2.add(tf.keras.layers.MaxPooling1D(MAX_POOLING_2))
-model2.add(tf.keras.layers.Flatten())
-
-model2.add(tf.keras.layers.Dense(CONV1D_OUT, activation='relu'))
-model2.add(tf.keras.layers.Dense(len(genre_index), activation='softmax'))
-# loss=binary_crossentropy
-# model2.compile(loss='categorical_crossentropy',
-#               optimizer='adam',
-#               metrics=['acc'])
-# adam = tf.keras.optimizers.Adam(lr=learning_rate, clipnorm=max_grad_norm)
-model2.compile(loss='categorical_crossentropy',
-              optimizer='adam',
-              metrics=['acc'])
-model2.summary()
+opt = tf.keras.optimizers.Adam(lr=learning_rate, clipnorm=max_grad_norm)
+# model = create_basic_cnn_model()
+# model = create_complex_cnn_model(False)
+model = create_2dconv_model()
+# model = create_conv_lstm_model()
+model.summary()
 
 
-# In[231]:
+# In[20]:
 
 
 print('Training Model')
-model_details = model2.fit(x_train, y_train,
-            epochs=100,
+model_details = model.fit(x_train, y_train,
+            batch_size=128,
+            epochs=10,
             shuffle=True,
             verbose=1,
             validation_split=VALIDATION_SPLIT)
 
-scores= model2.evaluate(x_test,y_test,verbose=1)
+scores= model.evaluate(x_test,y_test,verbose=0)
 print('Test loss:', scores[0])
 print('Test accuracy:', scores[1])
 
 
-# In[232]:
+# In[21]:
 
+
+def plot_confusion_matrix(cm, classes, error):
+    cmap=plt.cm.Blues
+    print('Confusion matrix, without normalization')
+    print(cm)
+    print(classes)
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+
+    plt.title('Average Recognition Accuracy: %.02f' %(error))
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+    fmt = 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+    print('hit 3')
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.tight_layout()
+    print('saved confusion matrix')
 
 def check_accuracy(model2,x_test,y_test):
     print('%d,%d'%(len(x_test),len(y_test)))
     correct=0.0
-    for x,y in zip(x_test, y_test):
-        x = np.reshape(x,(1,-1))
-        y = np.reshape(y,(1,-1))
-        scores = model2.predict(x,verbose=0)
-    #     print(scores)
-    #     print(y)
-    #     print(np.argmax(scores))
-    #     print(np.argmax(y))
-        if np.argmax(scores)==np.argmax(y):
-            correct+=1.0
-    print('Accuracy: %.2f' %(100*correct/len(x_test)))
+    # for x,y in zip(x_test, y_test):
+    # x = np.reshape(x,(1,-1))
+    # y = np.reshape(y,(1,-1))
+    y_pred = model2.predict(x_test,verbose=0)
+    # print(scores)
+    # print(y)
+    # print(np.argmax(scores))
+    # print(np.argmax(y))
+    # if np.argmax(scores)==np.argmax(y):
+    #     correct+=1.0
+    matrix = confusion_matrix(y_test.argmax(axis=1), y_pred.argmax(axis=1))
+    accuracy = np.sum(np.identity(len(genre_index))*matrix)/len(y_test)
+    print('Accuracy: %.2f' %(accuracy))
+    plt.figure()
+    plot_confusion_matrix(matrix,list(genre_index.keys()),accuracy)
+    plt.savefig('confusion_matrix.png')
+    plt.clf()
     #     print('Test loss:', scores[0])
     #     print('Test accuracy:', scores[1])
 
 
-# In[ ]:
+# In[22]:
 
 
 def plot_data(history):
@@ -311,8 +442,11 @@ def plot_data(history):
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
     plt.legend(['train', 'validation'], loc='upper left')
-#     plt.show()
+    # plt.show()
     plt.savefig('accuracy.png')
+    plt.clf()
+    print('saved accuracy')
+
     # summarize history for loss
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
@@ -320,14 +454,22 @@ def plot_data(history):
     plt.ylabel('loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'validation'], loc='upper left')
-#     plt.show()
+    # plt.show()
     plt.savefig('loss.png')
+    plt.clf()
+    print('saved loss')
 
 
 # In[ ]:
 
 
-check_accuracy(model2,x_test,y_test)
+check_accuracy(model,x_test,y_test)
 plot_data(model_details)
-save_model(model2,MODEL_SAVE_FILE, MODEL_SAVE_WEIGHTS_FILE)
+save_model(model,MODEL_SAVE_FILE, MODEL_SAVE_WEIGHTS_FILE)
+
+
+# In[ ]:
+
+
+
 
