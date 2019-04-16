@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
 import os
@@ -14,6 +14,14 @@ import numpy as np
 import math as m
 import datetime
 from pprint import pprint
+import gensim 
+from gensim.models import doc2vec
+from gensim.models.doc2vec import Doc2Vec
+
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
+from sklearn.metrics import confusion_matrix
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Model, Sequential
@@ -26,13 +34,9 @@ from tensorflow.keras.layers import LSTM, Bidirectional
 from tensorflow.keras import optimizers
 from tensorflow.keras import regularizers
 from tensorflow.keras.callbacks import ModelCheckpoint
-import matplotlib
-matplotlib.use('Agg')
-from matplotlib import pyplot as plt
-from sklearn.metrics import confusion_matrix
 
 
-# In[4]:
+# In[2]:
 
 
 # SERVER VARIABLES
@@ -44,11 +48,11 @@ from sklearn.metrics import confusion_matrix
 # backend.set_session(sess)
 
 # NO GPU so must downsize
-CPU=False
-epochs = 10
+CPU=True
+epochs = 1
 
 
-# In[5]:
+# In[3]:
 
 
 #CONSTANTS
@@ -66,31 +70,47 @@ PICKLE_INPUT = 'CNN_input.pickle'
 EMBEDDING_PATH = 'data/glove_embeddings/'
 EMBEDDING_FILE = 'glove.6B.'+str(EMBEDDING_DIM)+'d.txt'
 
+MODEL_DIR = 'saved_models/'
 MODEL_SAVE_FILE = 'cnn_model_1.1_'+str(epochs)+'.json'
 MODEL_SAVE_WEIGHTS_FILE = 'cnn_model_1.1_'+str(epochs)+'.h5'
-BEST_WEIGHTS_FILE = "best_weights.hdf5"
+BEST_WEIGHTS_FILE = 'best_weights'+str(epochs)+'.hdf5'
+
+GRAPHS_DIR = 'graphs_out/'
+
+DOC2VEC_PATH = MODEL_DIR + 'doc2vec/'
+DOC2VEC_FILE = 'd2v.model'
 
 # Default values - changed later
 MAX_SONG_LENGTH = 2500
 MAX_UNIQUE_WORDS = 20000
 
 
-# In[6]:
+# In[4]:
 
 
 # Embedding
 # Elmo could improve the word embeddings - need more research
 # elmo = hub.Module("https://tfhub.dev/google/elmo/2", trainable=True)
 print('loading embedding')
-if not os.path.exists(EMBEDDING_PATH+EMBEDDING_FILE):
-    print('Embeddings not found, downloading now')
-    print(os.system('pwd'))
-    os.system(' cd ' + DATA_PATH)
-    os.system(' mkdir ' + EMBEDDING_DIR)
-    os.system(' cd ' + EMBEDDING_DIR)
-    os.system(' wget http://nlp.stanford.edu/data/glove.6B.zip')
-    os.system(' unzip glove.6B.zip')
-    os.system(' cd ../..')
+try:
+    if not os.path.exists(EMBEDDING_PATH+EMBEDDING_FILE):
+        print('Embeddings not found, downloading now')
+        try:
+            print(os.system('pwd'))
+            os.system(' cd ' + DATA_PATH)
+            os.system(' mkdir ' + EMBEDDING_DIR)
+            os.system(' cd ' + EMBEDDING_DIR)
+            os.system(' wget http://nlp.stanford.edu/data/glove.6B.zip')
+            os.system(' unzip glove.6B.zip')
+            os.system(' cd ../..')
+        except:
+            print('not optimized for this operating system.')
+            print('please download: ')
+            print('http://nlp.stanford.edu/data/glove.6B.zip')
+            print('Note: this may take a while')
+            sys.exit()
+except:
+    print('Do you have the word embeddings?')
 
 glove_embeddings = {}
 with open(EMBEDDING_PATH+EMBEDDING_FILE, encoding='utf-8') as emb_f:
@@ -102,7 +122,7 @@ with open(EMBEDDING_PATH+EMBEDDING_FILE, encoding='utf-8') as emb_f:
 print('finished loading embedding')
 
 
-# In[7]:
+# In[5]:
 
 
 
@@ -121,7 +141,7 @@ print('longest song: %d' %(MAX_SONG_LENGTH))
 print('finished loading pickles')
 
 
-# In[8]:
+# In[6]:
 
 
 # MAX_UNIQUE_WORDS = len(unique_words_set)
@@ -141,7 +161,7 @@ labels = keras.utils.to_categorical(np.asarray(lyrics_labels))
 print('finished tokenizing')
 
 
-# In[ ]:
+# In[7]:
 
 
 # save model
@@ -155,7 +175,7 @@ def save_model(nn_model,filename,weights_filename):
     print("Saved model to disk")
 
 
-# In[ ]:
+# In[8]:
 
 
 
@@ -171,21 +191,18 @@ def load_model(filename,weights_filename):
     return loaded_model
 
 
-# In[ ]:
+# In[9]:
 
 
 def save_test_data(ind):
     filename = 'recent_testdata_'+str(epochs)+'.pickle'
-    # with open(PICKLE_ROOT+filename, mode='w') as f:
-        # wr = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        # wr.writerow(ind)
     data_ind = {}
     data_ind['indices'] = ind
     pickle.dump( data_ind, open(PICKLE_ROOT+filename, "wb" ) )
     print('saved test data to %s%s' %(PICKLE_ROOT,filename))
 
 
-# In[9]:
+# In[10]:
 
 
 # split the data into a training set and a validation set
@@ -193,7 +210,6 @@ indices = np.arange(data.shape[0])
 np.random.shuffle(indices)
 data = data[indices]
 labels = labels[indices]
-print(indices)
 save_test_data(indices)
 
 t_data = data[:int(data.shape[0]*.1)]
@@ -238,7 +254,36 @@ for word, i in word_index.items():
         embedding_matrix[i] = embedding_vector
 
 
-# In[14]:
+# In[11]:
+
+
+# loading doc2vec model
+# train_lyrics = np.array(lyrics)[indices]
+# print(train_lyrics[0])
+# def read_corpus(_data, tokens_only=False):
+#     i = 0
+#     for key,line in _data.items():
+#         if tokens_only:
+#             yield gensim.utils.simple_preprocess(line)
+#         else:
+#             # For training data, add tags
+#             yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(line), [i])
+#         i+=1
+        
+# train_corpus = list(read_corpus(train_lyrics))
+# model = gensim.models.doc2vec.Doc2Vec(vector_size=50, min_count=2, epochs=40)
+# model.build_vocab(train_corpus)
+# %time model.train(train_corpus, total_examples=model.corpus_count, epochs=model.epochs)
+
+# def lyric2vec():
+    
+    
+
+# d2v_model = Doc2Vec.load(DOC2VEC_PATH + DOC2VEC_FILE)
+# print(d2v_model.infer_vector(train_lyrics[0]))
+
+
+# In[12]:
 
 
 def create_2dconv_model():
@@ -287,7 +332,7 @@ def create_2dconv_model():
     return model
 
 
-# In[15]:
+# In[13]:
 
 
 print('Building model')
@@ -303,7 +348,7 @@ model = create_2dconv_model()
 model.summary()
 
 
-# In[16]:
+# In[14]:
 
 
 print('Training Model')
@@ -320,17 +365,49 @@ print('Test loss:', scores[0])
 print('Test accuracy:', scores[1])
 
 
+# In[26]:
+
+
+# # layer_outputs = [layer.output for layer in model.layers]
+# print(x_train[0].shape)
+# print(type(x_train[0]))
+# print(x_train.shape)
+
+# inp = model.input                                           # input placeholder
+# outputs = [layer.output for layer in model.layers]          # all layer outputs
+# functor = backend.function([inp, backend.learning_phase()], outputs )   # evaluation function
+
+# # Testing
+# layer_outs = functor([x_train[0], 1.])
+# print(layer_outs)
+
+
+
+# layer_outputs = [layer.output for layer in model.layers if layer.name == layer_name or layer_name is None][1:]
+# activation_model = Model(inputs=model.input, outputs=layer_outputs)
+
+# activations = activation_model.predict(x_train[0].reshape(1,1300))
+
+# def display_activation(activations, col_size, row_size, act_index): 
+#     activation = activations[act_index]
+#     print(activation)
+#     activation_index=0
+#     fig, ax = plt.subplots(row_size, col_size, figsize=(row_size*2.5,col_size*1.5))
+#     for row in range(0,row_size):
+#         for col in range(0,col_size):
+#             ax[row][col].imshow(activation[0, :, :, activation_index], cmap='gray')
+#             activation_index += 1
+
+# display_activation(activations, 8, 8, 1)
+
+
 # In[ ]:
 
 
-def plot_confusion_matrix(cm, g_index, error):
+def plot_confusion_matrix(cm, classes, error):
     cmap=plt.cm.Blues
     print('Confusion matrix, without normalization')
     print(cm)
-    classes = ['' for i in range(len(g_index))]
-    print(g_index)
-    for key,val in g_index.items():
-        classes[val] = key
     print(classes)
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
 
@@ -348,7 +425,6 @@ def plot_confusion_matrix(cm, g_index, error):
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.tight_layout()
-    print('saved confusion matrix')
 
 def check_accuracy(model2,x_test,y_test):
     print('%d,%d'%(len(x_test),len(y_test)))
@@ -357,8 +433,10 @@ def check_accuracy(model2,x_test,y_test):
     accuracy = np.sum(np.identity(len(genre_index))*matrix)/len(y_test)
     print('Accuracy: %.2f' %(accuracy))
     plt.figure()
-    plot_confusion_matrix(matrix,genre_index,accuracy)
-    plt.savefig('confusion_matrix_'+str(epochs)+'.png')
+    plot_confusion_matrix(matrix,list(genre_index.keys()),accuracy)
+    plt.savefig(GRAPHS_DIR+'confusion_matrix_'+str(epochs)+'.png')
+    print('saved confusion matrix')
+
     plt.clf()
 
 
@@ -376,7 +454,7 @@ def plot_data(history):
     plt.xlabel('epoch')
     plt.legend(['train', 'validation'], loc='upper left')
     # plt.show()
-    plt.savefig('accuracy_'+str(epochs)+'.png')
+    plt.savefig(GRAPHS_DIR+'accuracy_'+str(epochs)+'.png')
     plt.clf()
     print('saved accuracy')
 
@@ -388,7 +466,7 @@ def plot_data(history):
     plt.xlabel('epoch')
     plt.legend(['train', 'validation'], loc='upper left')
     # plt.show()
-    plt.savefig('loss_'+str(epochs)+'.png')
+    plt.savefig(GRAPHS_DIR+'loss_'+str(epochs)+'.png')
     plt.clf()
     print('saved loss')
 

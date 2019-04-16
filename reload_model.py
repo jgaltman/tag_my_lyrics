@@ -40,8 +40,10 @@ PICKLE_INPUT = 'CNN_input.pickle'
 CSV_TEST = 'recent_testdata_'+str(epochs)+'.csv' 
 PICKLE_TEST = 'recent_testdata_'+str(epochs)+'.pickle' 
 
-MODEL_LOAD_FILE = 'cnn_model_1.1_'+str(epochs)+'.json'
-MODEL_LOAD_WEIGHTS_FILE = 'best_weights.hdf5'
+
+MODEL_DIR = 'saved_models/'
+MODEL_LOAD_FILE = MODEL_DIR + 'cnn_model_1.1_'+str(epochs)+'.json'
+MODEL_LOAD_WEIGHTS_FILE = MODEL_DIR + 'best_weights.hdf5'
 
 # Default values - changed later
 MAX_SONG_LENGTH = 2500
