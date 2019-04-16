@@ -5,6 +5,11 @@
 **.pickle
 glove.*
 
+*.png
+*.csv
+*.h5
+*.json
+*.hdf5
 
 *.ini
 # Compiled source #
