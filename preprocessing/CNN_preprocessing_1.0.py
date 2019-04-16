@@ -32,7 +32,7 @@ SAVE = True
 
 
 # PATH CONSTANTS
-PICKLE_ROOT = 'data/lyrics/'
+PICKLE_ROOT = '../data/lyrics/'
 CHRISTIAN_PATH = 'Christian.pickle'
 POP_PATH = 'Pop.pickle'
 ROCK_PATH = 'Rock.pickle'
