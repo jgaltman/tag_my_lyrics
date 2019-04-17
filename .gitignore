@@ -10,6 +10,7 @@ glove.*
 *.h5
 *.json
 *.hdf5
+*.txt
 
 *.ini
 # Compiled source #
