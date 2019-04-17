@@ -20,6 +20,8 @@ from tensorflow.keras.layers import LSTM, Bidirectional
 from tensorflow.keras import optimizers
 from tensorflow.keras import regularizers
 import matplotlib
+from tkinter import *   
+from tkinter import scrolledtext
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
@@ -128,30 +130,54 @@ def load_model(filename,weights_filename):
     return loaded_model
 
 def main(argv):
+    def clicked():
+        inputlyrics = (txt.get("1.0",'end-1c'))
+        new_data = clean_data(inputlyrics,genre_index)
+        print(new_data)
+        token = pickle.load(open("data/test/token.pickle","rb"))
+        MAX_SONG_LENGTH = round(pickle.load(open(PICKLE_ROOT+"CNN_input.pickle","rb"))["longest_song"],-2)
+        print(MAX_SONG_LENGTH)
+        print('tokenizing')
+        sequences = token.texts_to_sequences(new_data)
+        data = keras.preprocessing.sequence.pad_sequences(sequences, maxlen=MAX_SONG_LENGTH,padding='post')
+        print(len(data[0]))
+        print('finished tokenizing')
+        scores= model.predict(data,verbose=0)
+        genreNumber = scores.argmax(axis = 1)
+        for g in genre_index.keys():
+            if(genre_index[g] == genreNumber):
+                print(g)
+                lbl2.configure(text=g)
+    def clicked_reset():
+        txt.delete(1.0,END)
+        lbl2.configure(text="")
+
     model = load_model(MODEL_LOAD_FILE,MODEL_LOAD_WEIGHTS_FILE)
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
     #x_test = clean input
     pickle_data = pickle.load( open(PICKLE_ROOT + "genres.pickle" , "rb" ))
     genre_index = pickle_data
     #inputlyrics = "Cardinal in the white snow They got too high to fly home For the winter, and I had a roommate once He got so high, couldn't go out at night So he found love on the internetAnd it is freezing in Pennsylvania"
-    with open('song_test.txt', 'r') as file:
-        inputlyrics = file.read().replace('\n', '')
-    new_data = clean_data(inputlyrics,genre_index)
-    print(new_data)
-    token = pickle.load(open("data/test/token.pickle","rb"))
-    MAX_SONG_LENGTH = round(pickle.load(open(PICKLE_ROOT+"CNN_input.pickle","rb"))["longest_song"],-2)
-    print(MAX_SONG_LENGTH)
-    print('tokenizing')
-    sequences = token.texts_to_sequences(new_data)
-    data = keras.preprocessing.sequence.pad_sequences(sequences, maxlen=MAX_SONG_LENGTH,padding='post')
-    print(len(data[0]))
-    print('finished tokenizing')
-    scores= model.predict(data,verbose=0)
-    genreNumber = scores.argmax(axis = 1)
-    for g in genre_index.keys():
-        if(genre_index[g] == genreNumber):
-            print(g)
+    # with open('song_test.txt', 'r') as file:
+    # inputlyrics = file.read().replace('\n', '')
+    window = Tk()
+    window.title("Tag My Lyrics")
+    lbl = Label(window, text="Classify Lyrics to Genre", font=("Arial Bold", 50))
+    lbl.grid(column=0, row=0)
+    txt = scrolledtext.ScrolledText(window,width=60,height=30)
+    txt.grid(column=0,row=2)
+    btn = Button(window, text="Classify", command=clicked) 
+    btn.grid(column=0, row=3)
+    lbl2 = Label(window, text="", font=("Arial Bold", 50))
+    lbl2.grid(column = 0, row = 5)
+    btn2 = Button(window, text="Reset", command=clicked_reset) 
+    btn2.grid(column=0, row=4)
+    window.geometry('800x600')
+    window.mainloop()
 
 
 if __name__ == '__main__':
     main(sys.argv)
+
+
+ 
