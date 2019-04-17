@@ -24,7 +24,7 @@ stop_words = set(stopwords.words('english'))
 #CONSTANTS
 MAX_SONG_LENGTH = 2500
 SONG_PER_GENRE = 4500
-DATA_KEYS = ['lyrics','lyrics_labels','unique_words_set','longest_song','genre_index']
+DATA_KEYS = ['lyrics','lyrics_labels','unique_words_set','longest_song','genre_index','artist','song_titles']
 SAVE = True
 
 
@@ -88,17 +88,16 @@ def clean_genre(data):
             print('iter - %d: song - %s' %(count, inner_title))
         inner_artist = song_info['artist']
         song_lyrics = song_info['lyrics']
-    
-#       song_lyrics_norm = re.sub(r'[^a-zA-Z0-9-\']', ' ', song_lyrics).strip()
-#       song_lyrics_split = song_lyrics_norm.lower().split()
         song_lyrics_norm, song_lyrics_split = remove_stop_and_punct(song_lyrics)
-    
-        if len(song_lyrics_split) <= MAX_SONG_LENGTH:
-            if len(song_lyrics_split) > max_length_song:
-                max_length_song = len(song_lyrics_split)
-            song_list.append(song_lyrics_norm)
-            unique_words_list = list(set(unique_words_list + song_lyrics_split))
-        count+=1
+        
+        if title == inner_title and artist == inner_artist:
+            if len(song_lyrics_split) <= MAX_SONG_LENGTH:
+
+                if len(song_lyrics_split) > max_length_song:
+                    max_length_song = len(song_lyrics_split)
+                song_list.append(song_lyrics_norm)
+                unique_words_list = list(set(unique_words_list + song_lyrics_split))
+            count+=1
         
         if count >= SONG_PER_GENRE:
             print('hit max songs: %d' %(SONG_PER_GENRE))
@@ -134,10 +133,6 @@ def save_prepared_data(filepath,filename, list_data):
     print('keys match data: %s' %(len(list_data)==len(DATA_KEYS)))
     for key,val in zip(DATA_KEYS,list_data):
         data[key] = val
-#     data['lyrics'] = lyrics
-#     data['lyrics_labels'] = labels
-#     data['unique_words_set'] = unique_words
-#     data['genre_index'] = genres
     pickle.dump( data, open(filepath+filename, "wb" ) )
     print('saved data to: %s%s' %(filepath,filename))
     
