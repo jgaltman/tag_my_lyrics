@@ -20,8 +20,11 @@ from tensorflow.keras.layers import LSTM, Bidirectional
 from tensorflow.keras import optimizers
 from tensorflow.keras import regularizers
 import matplotlib
-from tkinter import *   
+from tkinter import *
+from tkinter import ttk  
 from tkinter import scrolledtext
+from tkinter import messagebox
+from PIL import ImageTk, Image
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
@@ -132,22 +135,25 @@ def load_model(filename,weights_filename):
 def main(argv):
     def clicked():
         inputlyrics = (txt.get("1.0",'end-1c'))
-        new_data = clean_data(inputlyrics,genre_index)
-        print(new_data)
-        token = pickle.load(open("data/test/token.pickle","rb"))
-        MAX_SONG_LENGTH = round(pickle.load(open(PICKLE_ROOT+"CNN_input.pickle","rb"))["longest_song"],-2)
-        print(MAX_SONG_LENGTH)
-        print('tokenizing')
-        sequences = token.texts_to_sequences(new_data)
-        data = keras.preprocessing.sequence.pad_sequences(sequences, maxlen=MAX_SONG_LENGTH,padding='post')
-        print(len(data[0]))
-        print('finished tokenizing')
-        scores= model.predict(data,verbose=0)
-        genreNumber = scores.argmax(axis = 1)
-        for g in genre_index.keys():
-            if(genre_index[g] == genreNumber):
-                print(g)
-                lbl2.configure(text=g)
+        if(inputlyrics == ""):
+            messagebox.showwarning('Error', 'Please enter lyrics')
+        else:
+            new_data = clean_data(inputlyrics,genre_index)
+            print(new_data)
+            token = pickle.load(open("data/test/token.pickle","rb"))
+            MAX_SONG_LENGTH = round(pickle.load(open(PICKLE_ROOT+"CNN_input.pickle","rb"))["longest_song"],-2)
+            print(MAX_SONG_LENGTH)
+            print('tokenizing')
+            sequences = token.texts_to_sequences(new_data)
+            data = keras.preprocessing.sequence.pad_sequences(sequences, maxlen=MAX_SONG_LENGTH,padding='post')
+            print(len(data[0]))
+            print('finished tokenizing')
+            scores= model.predict(data,verbose=0)
+            genreNumber = scores.argmax(axis = 1)
+            for g in genre_index.keys():
+                if(genre_index[g] == genreNumber):
+                    print(g)
+                    lbl2.configure(text=g)
     def clicked_reset():
         txt.delete(1.0,END)
         lbl2.configure(text="")
@@ -162,17 +168,24 @@ def main(argv):
     # inputlyrics = file.read().replace('\n', '')
     window = Tk()
     window.title("Tag My Lyrics")
-    lbl = Label(window, text="Classify Lyrics to Genre", font=("Arial Bold", 50))
+    lbl = Label(window, text="♬ Classify Lyrics to Genre ♬", font=("Arial Bold", 50))
     lbl.grid(column=0, row=0)
-    txt = scrolledtext.ScrolledText(window,width=60,height=30)
+    lbl3 = Label(window,text = "Paste your lyrics below",font=("Arial Bold", 25))
+    lbl3.grid(column=0,row =1)
+    txt = scrolledtext.ScrolledText(window,width=60,height=25)
     txt.grid(column=0,row=2)
-    btn = Button(window, text="Classify", command=clicked) 
+    btn = Button(window, text="Classify", command=clicked,font=("Arial Bold", 25)) 
     btn.grid(column=0, row=3)
+    #btn.config( height = 6, width = 12 )
     lbl2 = Label(window, text="", font=("Arial Bold", 50))
-    lbl2.grid(column = 0, row = 5)
-    btn2 = Button(window, text="Reset", command=clicked_reset) 
-    btn2.grid(column=0, row=4)
-    window.geometry('800x600')
+    lbl2.grid(column = 0, row = 4)
+    btn2 = Button(window, text="Reset", command=clicked_reset,font=("Arial Bold", 15)) 
+    btn2.grid(column=0, row=5)
+    window.configure(background='LightBlue1')
+    lbl.configure(background = 'LightBlue1')
+    lbl2.configure(background = 'LightBlue1')
+    lbl3.configure(background = 'LightBlue1')
+    window.geometry('900x600')
     window.mainloop()
 
 
