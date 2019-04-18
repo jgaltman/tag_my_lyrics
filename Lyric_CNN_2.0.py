@@ -3,7 +3,7 @@
 
 # ### Import modules
 
-# In[3]:
+# In[1]:
 
 
 import os
@@ -40,56 +40,49 @@ from tensorflow.keras import optimizers
 from tensorflow.keras import regularizers
 from tensorflow.keras.callbacks import ModelCheckpoint
 
+import config as cfg
+
 
 # ### Set global variables
 
-# In[6]:
+# In[2]:
 
-
-# VERSION
-VERSION = '2.0'
 
 # SERVER VARIABLES
-CPU=False
-epochs = 10
+CPU=cfg.CPU
+epochs = cfg.EPOCHS
 
 
 #CONSTANTS
-VALIDATION_SPLIT = 0.33
-TEST_SPLIT = 0.2
-learning_rate = .001
-max_grad_norm = 1.
-DROPOUT = 0.5
-EMBEDDING_DIM = 100
+VALIDATION_SPLIT = cfg.VALIDATION_SPLIT
+TEST_SPLIT = cfg.TEST_SPLIT 
+DROPOUT = cfg.DROPOUT 
+EMBEDDING_DIM = cfg.EMBEDDING_DIM
 
 # PATH CONSTANTS
-PICKLE_ROOT = 'data/lyrics/'
-PICKLE_INPUT = PICKLE_ROOT+'CNN_input.pickle' 
+CNN_INPUT = cfg.CNN_INPUT
 
-EMBEDDING_DIR = 'data/glove_embeddings/'
-EMBEDDING_FILE = EMBEDDING_DIR+'glove.6B.'+str(EMBEDDING_DIM)+'d.txt'
+EMBEDDING_DIR = cfg.EMBEDDING_DIR
+EMBEDDING_FILE = cfg.EMBEDDING_FILE
 
-MODEL_DIR = 'saved_models/'
-MODEL_SAVE_FILE = MODEL_DIR+'cnn_model_'+VERSION+'.json'
-MODEL_SAVE_WEIGHTS_FILE = MODEL_DIR+'cnn_model_'+VERSION+'.h5'
-BEST_WEIGHTS_FILE = MODEL_DIR+'best_weights_'+VERSION+'.hdf5'
+MODEL_SAVE_FILE = cfg.MODEL_FILE
+MODEL_SAVE_WEIGHTS_FILE = cfg.MODEL_WEIGHTS_FILE
+BEST_WEIGHTS_FILE = cfg.BEST_WEIGHTS_FILE
 
-GRAPHS_DIR = 'graphs_out/'
-ACCURACY_GRAPH_FILE = GRAPHS_DIR+'accuracy_'+VERSION+'.png'
-LOSS_GRAPH_FILE = GRAPHS_DIR+'loss_'+VERSION+'.png'
-CONFUSION_MATRIX_FILE = GRAPHS_DIR+'confusion_matrix'+VERSION+'.png'
+ACCURACY_GRAPH_FILE = cfg.ACCURACY_GRAPH_FILE
+LOSS_GRAPH_FILE = cfg.LOSS_GRAPH_FILE
+CONFUSION_MATRIX_FILE = cfg.CONFUSION_MATRIX_FILE
+
+TOCKENIZER_PATH = cfg.TOCKENIZER_PATH
+TEST_INDECIES_FILE = cfg.TEST_INDECIES_FILE
+GENRE_FILE = cfg.GENRE_FILE
 
 # DOC2VEC_PATH = MODEL_DIR + 'doc2vec/'
 # DOC2VEC_FILE = 'd2v.model'
 
-TEST_DIR = 'data/test/'
-TOCKENIZER_PATH = TEST_DIR+'token.pickle'
-TEST_INDECIES_FILE = TEST_DIR+'recent_testdata_'+VERSION+'.pickle'
-GENRE_FILE = TEST_DIR+'genres.pickle'
-
 # Default values - changed later
-MAX_SONG_LENGTH = 2500
-MAX_UNIQUE_WORDS = 20000
+MAX_SONG_LENGTH = cfg.MAX_SONG_LENGTH
+MAX_UNIQUE_WORDS = cfg.MAX_UNIQUE_WORDS
 
 
 # # Functions
@@ -128,14 +121,14 @@ def load_model(filename,weights_filename):
 
 # ### Save test data
 
-# In[5]:
+# In[13]:
 
 
 def save_test_data(ind):
     data_ind = {}
     data_ind['indices'] = ind
     pickle.dump( data_ind, open(TEST_INDECIES_FILE, "wb" ) )
-    print('saved test data to %s%s' %(TEST_INDECIES_FILE))
+    print('saved test data to %s' %(TEST_INDECIES_FILE))
 
 
 # ### Plot confusion matrix
@@ -259,11 +252,11 @@ print('finished loading embedding')
 
 # ### Load pickles
 
-# In[7]:
+# In[10]:
 
 
 print('loading pickles')
-pickle_data = pickle.load( open(PICKLE_INPUT , "rb" ))
+pickle_data = pickle.load( open(CNN_INPUT , "rb" ))
 lyrics = pickle_data['lyrics']
 lyrics_labels = pickle_data['lyrics_labels']
 unique_words_set = pickle_data['unique_words_set']
@@ -305,7 +298,7 @@ print('finished tokenizing')
 
 # ### Split data into training set and validation set
 
-# In[12]:
+# In[14]:
 
 
 # split the data into a training set and a validation set
@@ -359,7 +352,7 @@ for word, i in word_index.items():
 
 # ### Create 2D Convolutional model
 
-# In[13]:
+# In[15]:
 
 
 def create_2dconv_model():
@@ -414,25 +407,22 @@ def create_2dconv_model():
 
 # ### Build Model
 
-# In[14]:
+# In[16]:
 
 
 print('Building model')
 # opt = tf.keras.optimizers.Adam(lr=learning_rate, clipnorm=max_grad_norm)
-# model = create_basic_cnn_model()
-# model = create_complex_cnn_model(False)
 checkpointer = ModelCheckpoint(filepath=BEST_WEIGHTS_FILE,
                                monitor = 'val_acc',
                                verbose=1,
                                save_best_only=True)
 model = create_2dconv_model()
-# model = create_conv_lstm_model()
 model.summary()
 
 
 # ### Train Model
 
-# In[15]:
+# In[17]:
 
 
 print('Training Model')
@@ -451,7 +441,7 @@ print('Test accuracy:', scores[1])
 
 # ### Check accuracy, plot data, save model
 
-# In[16]:
+# In[ ]:
 
 
 check_accuracy(model,x_test,y_test)
@@ -465,7 +455,7 @@ save_model(model,MODEL_SAVE_FILE, MODEL_SAVE_WEIGHTS_FILE)
 
 # ### Doc to vec
 
-# In[17]:
+# In[ ]:
 
 
 # loading doc2vec model
@@ -494,7 +484,7 @@ save_model(model,MODEL_SAVE_FILE, MODEL_SAVE_WEIGHTS_FILE)
 # print(d2v_model.infer_vector(train_lyrics[0]))
 
 
-# In[18]:
+# In[ ]:
 
 
 # unused and not finished

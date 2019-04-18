@@ -5,7 +5,6 @@ import pickle
 import itertools
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
 import tensorflow as tf
@@ -13,29 +12,25 @@ from tensorflow import keras
 from tensorflow.keras.models import Model
 from tensorflow.keras.models import model_from_json
 
+import config as cfg
+
 #CONSTANTS
-VERSION = '2.0'
-TEST_SPLIT = 0.2
-SAVE = False
+TEST_SPLIT = cfg.TEST_SPLIT
+SAVE_RELOAD = cfg.SAVE_RELOAD
 
 # PATH CONSTANTS
-PICKLE_ROOT = 'data/lyrics/'
-PICKLE_INPUT =PICKLE_ROOT+ 'CNN_input.pickle'
+CNN_INPUT = cfg.CNN_INPUT
 
-TEST_DIR = 'data/test/'
-TOCKENIZER_PATH = TEST_DIR+'token.pickle'
-TEST_INDECIES_FILE = TEST_DIR+'recent_testdata_'+VERSION+'.pickle'
+TOCKENIZER_PATH = cfg.TOCKENIZER_PATH
+TEST_INDECIES_FILE = cfg.TEST_INDECIES_FILE
 
+MODEL_LOAD_FILE = cfg.MODEL_FILE
+MODEL_LOAD_WEIGHTS_FILE = cfg.BEST_WEIGHTS_FILE
 
-MODEL_DIR = 'saved_models/'
-MODEL_LOAD_FILE = MODEL_DIR+'cnn_model_'+VERSION+'.json'
-MODEL_LOAD_WEIGHTS_FILE = MODEL_DIR+'best_weights_'+VERSION+'.hdf5'
-
-GRAPH_DIR = 'graphs_out/'
-CONFUSION_MATRIX_FILE = GRAPHS_DIR+'reloaded_confusion_matrix_'+VERSION+'.png'
+CONFUSION_MATRIX_FILE = cfg.CONFUSION_MATRIX_RELOAD_FILE
 
 # Default values - changed later
-MAX_SONG_LENGTH = 2500
+MAX_SONG_LENGTH = cfg.MAX_SONG_LENGTH
 
 def load_model(filename,weights_filename):
     # load json and create model
@@ -83,7 +78,7 @@ def check_accuracy(model2,x_test,y_test):
     print('Accuracy: %.2f' %(accuracy))
     plt.figure()
     plot_confusion_matrix(matrix,genre_index,accuracy)
-    if SAVE:
+    if SAVE_RELOAD:
         plt.savefig(CONFUSION_MATRIX_FILE)
         print('saved confusion matrix')
     else:
@@ -92,7 +87,7 @@ def check_accuracy(model2,x_test,y_test):
 
 
 print('loading pickles')
-pickle_data = pickle.load( open(PICKLE_INPUT , "rb" ))
+pickle_data = pickle.load( open(CNN_INPUT , "rb" ))
 lyrics = pickle_data['lyrics']
 lyrics_labels = pickle_data['lyrics_labels']
 unique_words_set = pickle_data['unique_words_set']

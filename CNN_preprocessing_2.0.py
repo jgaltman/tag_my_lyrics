@@ -18,31 +18,33 @@ nltk.download('punkt')
 tokenizer = RegexpTokenizer(r'\w+')
 stop_words = set(stopwords.words('english'))
 
+import config as cfg
+
 
 # In[2]:
 
 
 #CONSTANTS
-MAX_SONG_LENGTH = 2500
-SONG_PER_GENRE = 4500
-THRESH = 2000
-REMOVE_COMMON_WORDS = False
-DATA_KEYS = ['lyrics','lyrics_labels','unique_words_set','longest_song','genre_index','artist','song_titles']
-SAVE = True
+MAX_SONG_LENGTH = cfg.MAX_SONG_LENGTH
+SONG_PER_GENRE = cfg.SONG_PER_GENRE
+THRESH = cfg.THRESH
+REMOVE_COMMON_WORDS = cfg.REMOVE_COMMON_WORDS
+DATA_KEYS = cfg.DATA_KEYS
+SAVE_PREPROCESS = cfg.SAVE_PREPROCESS
 
 
 # In[3]:
 
 
 # PATH CONSTANTS
-PICKLE_ROOT = '../data/lyrics/original_pickles/'
-PICKLE_OUT_PATH = '../data/lyrics/'
-CHRISTIAN_PATH = 'Christian.pickle'
-POP_PATH = 'Pop.pickle'
-ROCK_PATH = 'Rock.pickle'
-COUNTRY_PATH = 'Country.pickle'
-RAP_PATH = 'Rap.pickle'
-OUT_PICKLE = 'CNN_input.pickle' 
+PICKLE_ROOT = cfg.PICKLE_ROOT
+PICKLE_OUT_PATH = cfg.PICKLE_OUT_PATH
+CHRISTIAN_PATH = cfg.CHRISTIAN_PATH
+POP_PATH = cfg.POP_PATH
+ROCK_PATH = cfg.ROCK_PATH
+COUNTRY_PATH = cfg.COUNTRY_PATH
+RAP_PATH = cfg.RAP_PATH
+OUT_PICKLE = cfg.OUT_PICKLE
 
 LYRIC_PATHS = [CHRISTIAN_PATH,POP_PATH,ROCK_PATH,COUNTRY_PATH,RAP_PATH]
 
@@ -241,7 +243,7 @@ def main(argv):
     print('longest song : %d' %(longest_song))
     print('finished cleaning data')
     
-    if SAVE:
+    if SAVE_PREPROCESS:
         
         save_prepared_data(PICKLE_OUT_PATH,OUT_PICKLE,new_data)
         print('verifying data stored')

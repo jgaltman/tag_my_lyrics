@@ -53,9 +53,12 @@ Lastly run the UI to have a fully functional genre classifier that you can imple
 Many Data Files are left out of this repository.  
 The file tree should initially look as below to run properly.  
 
+     ├── CNN_preprocessing_1.0.ipynb 
+     ├── CNN_preprocessing_1.0.py  
      ├── Lyric_CNN_2.0.ipynb  
      ├── Lyric_CNN_2.0.py  
      ├── UIScript.py  
+     ├── config.py
      ├── data  
      │   ├── glove_embeddings  
      │   │   └── glove.6B.100d.txt  
@@ -68,16 +71,16 @@ The file tree should initially look as below to run properly.
      │   │       └── Rock.pickle  
      │   └── test  
      ├── graphs_out  
-     ├── preprocessing  
-     │   ├── CNN_preprocessing_1.0.ipynb  
-     │   └── CNN_preprocessing_1.0.py  
      └── saved_models  
 
 After running Preprocessing and CNN:  
-
+     
+     ├── CNN_preprocessing_1.0.ipynb 
+     ├── CNN_preprocessing_1.0.py  
      ├── Lyric_CNN_2.0.ipynb  
      ├── Lyric_CNN_2.0.py  
      ├── UIScript.py  
+     ├── config.py
      ├── data  
      │   ├── glove_embeddings  
      │   │   └── glove.6B.100d.txt  
@@ -97,9 +100,6 @@ After running Preprocessing and CNN:
      │   ├── accuracy_2.0.png  
      │   ├── confusion_matrix_2.0.png  
      │   └── loss_2.0.png  
-     ├── preprocessing  
-     │   ├── CNN_preprocessing_1.0.ipynb  
-     │   └── CNN_preprocessing_1.0.py  
      └── saved_models  
          ├── best_weights_2.0.hdf5  
          ├── cnn_model_2.0.h5  

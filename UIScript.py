@@ -19,29 +19,14 @@ nltk.download('punkt')
 tokenizer = RegexpTokenizer(r'\w+')
 stop_words = set(stopwords.words('english'))
 
-#CONSTANTS
-DATA_KEYS = ['lyrics','lyrics_labels','unique_words_set','longest_song','genre_index']
-SAVE = True
-VERSION = '2.0'
-VALIDATION_SPLIT = 0.33
-TEST_SPLIT = 0.2
-learning_rate = .001
-max_grad_norm = 1.
-DROPOUT = 0.5
-EMBEDDING_DIM = 100
-epochs=5
+import config as cfg
 
-# PATH CONSTANTS
-PICKLE_ROOT = 'data/lyrics/'
-PICKLE_INPUT = PICKLE_ROOT+'CNN_input.pickle' 
-
-MODEL_DIR = 'saved_models/'
-MODEL_LOAD_FILE = MODEL_DIR+'cnn_model_'+VERSION+'.json'
-MODEL_LOAD_WEIGHTS_FILE = MODEL_DIR+'best_weights_'+VERSION+'.hdf5'
-
-TEST_DIR = 'data/test/'
-TOCKENIZER_PATH = TEST_DIR+'token.pickle'
-GENRE_FILE = TEST_DIR+'genres.pickle'
+# PATHS FROM CONFIG
+CNN_INPUT = cfg.CNN_INPUT
+MODEL_LOAD_FILE = cfg.MODEL_FILE
+MODEL_LOAD_WEIGHTS_FILE = cfg.BEST_WEIGHTS_FILE
+TOCKENIZER_PATH = cfg.TOCKENIZER_PATH
+GENRE_FILE = cfg.GENRE_FILE
 
 
 def clean_data(song_lyrics):    
@@ -71,7 +56,7 @@ def main(argv):
             new_data = clean_data(inputlyrics)
             print(new_data)
             token = pickle.load(open(TOCKENIZER_PATH,"rb"))
-            MAX_SONG_LENGTH = round(pickle.load(open(PICKLE_INPUT,"rb"))["longest_song"],-2)
+            MAX_SONG_LENGTH = round(pickle.load(open(CNN_INPUT,"rb"))["longest_song"],-2)
             print(MAX_SONG_LENGTH)
             print('tokenizing')
             sequences = token.texts_to_sequences(new_data)
