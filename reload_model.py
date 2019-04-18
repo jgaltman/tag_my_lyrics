@@ -1,54 +1,41 @@
 import os
 import sys
 import re
-import csv
 import pickle
 import itertools
 import numpy as np
-import math as m
-import datetime
-from pprint import pprint
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.models import Model, Sequential
-from tensorflow.keras import backend
-from tensorflow.python.client import device_lib
-from tensorflow.keras.models import model_from_json
-from tensorflow.keras.layers import Dense, Input, Flatten, Reshape, concatenate, Dropout
-from tensorflow.keras.layers import Conv1D, Conv2D, MaxPooling1D, MaxPooling2D, Embedding
-from tensorflow.keras.layers import LSTM, Bidirectional
-from tensorflow.keras import optimizers
-from tensorflow.keras import regularizers
 import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras.models import Model
+from tensorflow.keras.models import model_from_json
 
 #CONSTANTS
-VALIDATION_SPLIT = 0.33
+VERSION = '2.0'
 TEST_SPLIT = 0.2
-learning_rate = .001
-max_grad_norm = 1.
-DROPOUT = 0.5
-EMBEDDING_DIM = 100
-epochs=10
-
+SAVE = False
 
 # PATH CONSTANTS
 PICKLE_ROOT = 'data/lyrics/'
-PICKLE_INPUT = 'CNN_input.pickle' 
-CSV_TEST = 'recent_testdata_'+str(epochs)+'.csv' 
-PICKLE_TEST = 'recent_testdata_'+str(epochs)+'.pickle' 
+PICKLE_INPUT =PICKLE_ROOT+ 'CNN_input.pickle'
+
+TEST_DIR = 'data/test/'
+TOCKENIZER_PATH = TEST_DIR+'token.pickle'
+TEST_INDECIES_FILE = TEST_DIR+'recent_testdata_'+VERSION+'.pickle'
 
 
 MODEL_DIR = 'saved_models/'
-MODEL_LOAD_FILE = MODEL_DIR + 'cnn_model_1.1_'+str(epochs)+'.json'
-MODEL_LOAD_WEIGHTS_FILE = MODEL_DIR + 'best_weights.hdf5'
+MODEL_LOAD_FILE = MODEL_DIR+'cnn_model_'+VERSION+'.json'
+MODEL_LOAD_WEIGHTS_FILE = MODEL_DIR+'best_weights_'+VERSION+'.hdf5'
+
+GRAPH_DIR = 'graphs_out/'
+CONFUSION_MATRIX_FILE = GRAPHS_DIR+'reloaded_confusion_matrix_'+VERSION+'.png'
 
 # Default values - changed later
 MAX_SONG_LENGTH = 2500
-MAX_UNIQUE_WORDS = 20000
-
 
 def load_model(filename,weights_filename):
     # load json and create model
@@ -60,7 +47,6 @@ def load_model(filename,weights_filename):
     loaded_model.load_weights(weights_filename)
     print("Loaded model from disk")
     return loaded_model
-
 
 def plot_confusion_matrix(cm, g_index, error):
     cmap=plt.cm.Blues
@@ -87,36 +73,26 @@ def plot_confusion_matrix(cm, g_index, error):
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.tight_layout()
-    print('saved confusion matrix')
 
 def check_accuracy(model2,x_test,y_test):
     print('%d,%d'%(len(x_test),len(y_test)))
     correct=0.0
-    # for x,y in zip(x_test, y_test):
-    # x = np.reshape(x,(1,-1))
-    # y = np.reshape(y,(1,-1))
     y_pred = model2.predict(x_test,verbose=0)
-    # print(scores)
-    # print(y)
-    # print(np.argmax(scores))
-    # print(np.argmax(y))
-    # if np.argmax(scores)==np.argmax(y):
-    #     correct+=1.0
     matrix = confusion_matrix(y_test.argmax(axis=1), y_pred.argmax(axis=1))
     accuracy = np.sum(np.identity(len(genre_index))*matrix)/len(y_test)
     print('Accuracy: %.2f' %(accuracy))
     plt.figure()
     plot_confusion_matrix(matrix,genre_index,accuracy)
-    plt.savefig('reloaded_confusion_matrix.png')
+    if SAVE:
+        plt.savefig(CONFUSION_MATRIX_FILE)
+        print('saved confusion matrix')
+    else:
+        plt.show()
     plt.clf()
-    #     print('Test loss:', scores[0])
-    #     print('Test accuracy:', scores[1])
-
-
 
 
 print('loading pickles')
-pickle_data = pickle.load( open(PICKLE_ROOT + PICKLE_INPUT , "rb" ))
+pickle_data = pickle.load( open(PICKLE_INPUT , "rb" ))
 lyrics = pickle_data['lyrics']
 lyrics_labels = pickle_data['lyrics_labels']
 unique_words_set = pickle_data['unique_words_set']
@@ -129,14 +105,10 @@ print('number of unique words: %d' %(len(unique_words_set)))
 print('longest song: %d' %(MAX_SONG_LENGTH))
 print('finished loading pickles')
 
-
 print('tokenizing')
-tokenizer = keras.preprocessing.text.Tokenizer(num_words=MAX_UNIQUE_WORDS)
-tokenizer.fit_on_texts(lyrics)
-sequences = tokenizer.texts_to_sequences(lyrics)
+tokenizer = pickle.load(open(TOCKENIZER_PATH,"rb"))
 
-word_index = tokenizer.word_index
-print('Unique words tokens %d' % (len(word_index)))
+sequences = tokenizer.texts_to_sequences(lyrics)
 
 data = keras.preprocessing.sequence.pad_sequences(sequences, maxlen=MAX_SONG_LENGTH,padding='post')
 labels = keras.utils.to_categorical(np.asarray(lyrics_labels))
@@ -145,16 +117,10 @@ print('finished tokenizing')
 
 
 # split the data into a training set and a validation set
-pickle_test_index = pickle.load( open(PICKLE_ROOT + PICKLE_TEST , "rb" ))
-# indices = []
-# with open(PICKLE_ROOT + CSV_TEST, 'r') as f:
-#   reader = csv.reader(f)
-#   indices = list(reader)
+pickle_test_index = pickle.load( open(TEST_INDECIES_FILE, "rb" ))
 
 indices = pickle_test_index['indices']
 print(indices)
-# indices = np.arange(data.shape[0])
-# np.random.shuffle(indices)
 data = data[indices]
 labels = labels[indices]
 shuffled_lyrics = np.array(lyrics)[indices]
@@ -189,13 +155,5 @@ print('Test loss:', scores[0])
 print('Test accuracy:', scores[1])
 
 check_accuracy(model,x_test,y_test)
-
-
-def get_partial_output(model,x_input):
-    layer_outputs = [layer.output for layer in model.layers[:12]] 
-    # Extracts the outputs of the top 12 layers
-    activation_model = models.Model(inputs=model.input, outputs=layer_outputs) # Creates a model that will return these outputs, given the model input
-    activations = activation_model.predict(x_input) 
-    print(activations)
 
 
